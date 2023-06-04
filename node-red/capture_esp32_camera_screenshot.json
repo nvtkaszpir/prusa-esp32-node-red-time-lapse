@@ -1,0 +1,254 @@
+[
+    {
+        "id": "1ca62d7577d438c1",
+        "type": "tab",
+        "label": "Capture ESP32 Camera Screenshot",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "abdfc763699a7cb7",
+        "type": "http request",
+        "z": "1ca62d7577d438c1",
+        "name": "esp32 camera",
+        "method": "GET",
+        "ret": "bin",
+        "paytoqs": "ignore",
+        "url": "http://ESP32_CAMERA_ADDRESS:8081",
+        "tls": "",
+        "persist": false,
+        "proxy": "",
+        "insecureHTTPParser": false,
+        "authType": "",
+        "senderr": false,
+        "headers": [],
+        "credentials": {},
+        "x": 720,
+        "y": 420,
+        "wires": [
+            [
+                "e199c5df713992f5"
+            ]
+        ]
+    },
+    {
+        "id": "8df2f68950a0d5aa",
+        "type": "file",
+        "z": "1ca62d7577d438c1",
+        "name": "",
+        "filename": "filename",
+        "filenameType": "msg",
+        "appendNewline": false,
+        "createDir": true,
+        "overwriteFile": "true",
+        "encoding": "none",
+        "x": 1060,
+        "y": 420,
+        "wires": [
+            []
+        ],
+        "info": "Do NOT touch encoding, keep it at 'default"
+    },
+    {
+        "id": "e199c5df713992f5",
+        "type": "image",
+        "z": "1ca62d7577d438c1",
+        "name": "",
+        "width": "320",
+        "data": "payload",
+        "dataType": "msg",
+        "thumbnail": false,
+        "active": true,
+        "pass": true,
+        "outputs": 1,
+        "x": 880,
+        "y": 420,
+        "wires": [
+            [
+                "8df2f68950a0d5aa"
+            ]
+        ]
+    },
+    {
+        "id": "dcea8bc14c4abe75",
+        "type": "moment",
+        "z": "1ca62d7577d438c1",
+        "name": "",
+        "topic": "",
+        "input": "",
+        "inputType": "msg",
+        "inTz": "Etc/UTC",
+        "adjAmount": 0,
+        "adjType": "days",
+        "adjDir": "add",
+        "format": "yyyy-MM-DD_HH-mm-ss",
+        "locale": "en-US",
+        "output": "",
+        "outputType": "msg",
+        "outTz": "Etc/UTC",
+        "x": 380,
+        "y": 260,
+        "wires": [
+            [
+                "39d50053d68500f3",
+                "3e512f643406958c"
+            ]
+        ]
+    },
+    {
+        "id": "39d50053d68500f3",
+        "type": "template",
+        "z": "1ca62d7577d438c1",
+        "name": "",
+        "field": "payload",
+        "fieldType": "msg",
+        "format": "handlebars",
+        "syntax": "mustache",
+        "template": "/data/prusa/{{payload}}.jpg",
+        "output": "str",
+        "x": 580,
+        "y": 260,
+        "wires": [
+            [
+                "36067a71f347172b"
+            ]
+        ]
+    },
+    {
+        "id": "36067a71f347172b",
+        "type": "change",
+        "z": "1ca62d7577d438c1",
+        "name": "",
+        "rules": [
+            {
+                "t": "move",
+                "p": "payload",
+                "pt": "msg",
+                "to": "filename",
+                "tot": "msg"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 610,
+        "y": 340,
+        "wires": [
+            [
+                "abdfc763699a7cb7"
+            ]
+        ]
+    },
+    {
+        "id": "7329ac4ec687dbe0",
+        "type": "link in",
+        "z": "1ca62d7577d438c1",
+        "name": "Link in - PrusaCam",
+        "links": [
+            "21d3aedcea4ce49e"
+        ],
+        "x": 55,
+        "y": 120,
+        "wires": [
+            [
+                "d54e3bcf16243122"
+            ]
+        ],
+        "info": "Link - trigger screenshot of \r\nesp32 camera looking at the Prusa"
+    },
+    {
+        "id": "d54e3bcf16243122",
+        "type": "change",
+        "z": "1ca62d7577d438c1",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "",
+                "tot": "date"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 220,
+        "y": 180,
+        "wires": [
+            [
+                "dcea8bc14c4abe75"
+            ]
+        ]
+    },
+    {
+        "id": "c09ec57856dc6b5b",
+        "type": "inject",
+        "z": "1ca62d7577d438c1",
+        "name": "test",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "true",
+        "payloadType": "bool",
+        "x": 90,
+        "y": 240,
+        "wires": [
+            [
+                "d54e3bcf16243122"
+            ]
+        ]
+    },
+    {
+        "id": "3e512f643406958c",
+        "type": "ui_text",
+        "z": "1ca62d7577d438c1",
+        "group": "f4f4f8f287721c88",
+        "order": 1,
+        "width": 0,
+        "height": 0,
+        "name": "",
+        "label": "Last Camera trigger",
+        "format": "{{msg.payload}}",
+        "layout": "col-center",
+        "className": "",
+        "x": 620,
+        "y": 200,
+        "wires": []
+    },
+    {
+        "id": "f4f4f8f287721c88",
+        "type": "ui_group",
+        "name": "Time Lapse",
+        "tab": "aad737c4f3643d30",
+        "order": 2,
+        "disp": true,
+        "width": "6",
+        "collapse": false,
+        "className": ""
+    },
+    {
+        "id": "aad737c4f3643d30",
+        "type": "ui_tab",
+        "name": "Home",
+        "icon": "dashboard",
+        "disabled": false,
+        "hidden": false
+    }
+]

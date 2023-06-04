@@ -1,0 +1,155 @@
+# prusa camera
+substitutions:
+  device_name: esp32-wrover-044f30
+  wifi_ssid: !secret WIFI_SSID
+  wifi_pass: !secret WIFI_PASS
+  domain: !secret DOMAIN
+
+
+esphome:
+  name: "esp32-wrover-044f30"
+
+esp32:
+  board: esp32dev
+  # board: esp-wrover-kit # has PSRAM
+  framework:
+    type: arduino
+
+# Enable logging
+logger:
+  level: DEBUG
+
+debug:
+  update_interval: 5s
+
+# generic services
+time:
+  - platform: sntp
+    timezone: "Etc/UTC"
+    id: sntp_time
+
+web_server:
+  port: 80
+
+# Enable Home Assistant API if uncommented
+# api:
+#   password: ""
+  # reboot_timeout: 0s # disable reboot if not connected to HA
+
+# (Over The Air) update component
+ota:
+  password: "eik0yaey0avaebieh4CieChu"
+
+wifi:
+  ssid: !secret wifi_ssid
+  password: !secret wifi_password
+  # Enable fallback hotspot (captive portal) in case wifi connection fails
+  ap:
+    ssid: "${device_name}"
+    password: "guokooPhuteerahxaeJ7jeih"
+
+captive_portal:
+
+
+button:
+  - platform: restart
+    name: "${device_name} Restart"
+
+
+# web ui info
+text_sensor:
+  - platform: version
+    name: "ESPHome Version ${device_name}"
+
+  - platform: debug
+    device:
+      name: "Device Info"
+    reset_reason:
+      name: "Reset Reason"
+
+  - platform: wifi_info
+    ip_address:
+      name: "IP Address ${device_name}"
+    ssid:
+      name: "Connected SSID ${device_name}"
+    bssid:
+      name: "Connected BSSID ${device_name}"
+    mac_address:
+      name: "Mac Wifi Address ${device_name}"
+
+  - platform: version
+    name: "ESPHome Version ${device_name}"
+
+# Example configuration entry for ESP32
+i2c:
+  # for aht10
+  # - id: bus_b
+  #   sda: 32
+  #   scl: 33
+  #   scan: true
+
+
+# modules
+sensor:
+  - platform: uptime
+    id: socket_uptime
+    name: "Uptime"
+    icon: mdi:clock-outline
+    update_interval: 60s
+
+  - platform: wifi_signal
+    id: socket_wifi_signal
+    name: "WiFi Signal"
+    update_interval: 30s
+
+  # can be commented out after tests
+  - platform: debug
+    free:
+      name: "heap_free"
+    loop_time:
+      name: "loop_time"
+
+  # gather temperature and humidity, on second I2C bus (bus_b)
+  # - platform: aht10
+  #   i2c_id: bus_b
+  #   temperature:
+  #     name: "${device_name} temperature"
+  #   humidity:
+  #     name: "${device_name} humidity"
+  #   update_interval: 60s
+
+
+esp32_camera:
+  external_clock:
+    pin: GPIO21
+    frequency: 20MHz
+    # frequency: 8MHz # does not makes it go faster, actually slower a bit
+  i2c_pins:
+    sda: GPIO26
+    scl: GPIO27
+  data_pins: [GPIO4, GPIO5, GPIO18, GPIO19, GPIO36, GPIO39, GPIO34, GPIO35]
+  vsync_pin: GPIO25
+  href_pin: GPIO23
+  pixel_clock_pin: GPIO22
+  # Image settings
+  # name: esp32-wrover-044f30-camera
+  aec_mode: auto
+  ae_level: -2
+  aec2: true
+  # agc_gain_ceiling: 128x
+  contrast: 2
+  horizontal_mirror: false
+  jpeg_quality: 10 # 10 best (default), 64 worst
+  max_framerate: 25 fps
+  resolution: 800x600 # check resolution your camera supports
+  saturation: 2
+  vertical_flip: false
+  wb_mode: auto
+
+# allow to fetch still camera image via web and live stream
+# ensure to set 'max_framerate: 30 fps' above
+esp32_camera_web_server:
+  - port: 8080
+    mode: stream
+  - port: 8081
+    mode: snapshot

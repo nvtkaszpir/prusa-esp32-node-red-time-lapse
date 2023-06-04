@@ -1,0 +1,32 @@
+version: "3"
+
+services:
+  node-red:
+    container_name: nodered
+    image: nodered/node-red
+    ports:
+      - "0.0.0.0:1880:1880/tcp" # you can restrict it to specific IP address if you want
+    environment:
+      TZ: 'UTC/Etc'
+    volumes:
+      - "./node-red/data:/data:rw"
+    restart: unless-stopped
+
+  mqtt:
+    container_name: mqtt
+    image: eclipse-mosquitto
+    ports:
+      - "0.0.0.0:1883:1883/tcp" # you can restrict it to specific IP address if you want
+      - "0.0.0.0:9001:9001/tcp" # websoket
+    environment:
+      TZ: 'UTC/Etc'
+    volumes:
+      - "./mqtt/config/mosquitto.conf:/mosquitto/config/mosquitto.conf:rw"
+      - "./mqtt/data:/mosquitto/data:rw"
+      - "./mqtt/log:/mosquitto/log:rw"
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "mosquitto_sub", "-t", "$$SYS/#", "-C", "1", "-i", "healthcheck", "-W", "3"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
