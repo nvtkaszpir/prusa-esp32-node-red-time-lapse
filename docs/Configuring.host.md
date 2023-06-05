@@ -21,7 +21,7 @@
 - install node-RED
   see [docs](https://nodered.org/docs/getting-started/local)
 
-- confgiure node-RED by installing extra plugins
+- configure node-RED by installing extra plugins
   required plugins
   - `node-red-contrib-file-manager` - write files
   - `node-red-contrib-image-output` - image preview

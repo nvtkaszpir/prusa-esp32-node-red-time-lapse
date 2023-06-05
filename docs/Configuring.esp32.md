@@ -12,7 +12,7 @@
 
 - the easiest is to run container with esphome and use it for device config
 - new device should show up - press adopt and configure it (see below)
-- TODO: add comments to esphome dasboard?
+- TODO: add comments to esphome dashboard?
 - TODO: how to add secrets to wifi
 
 ## Install firmware on the device

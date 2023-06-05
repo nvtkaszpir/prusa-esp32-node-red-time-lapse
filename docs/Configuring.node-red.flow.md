@@ -20,4 +20,4 @@ Second flow is just to capture and store image in directory.
 - test if capturing image works - you can manually trigger flow in node-red
 - test if printer status is up
 - testing print and automation - when 3D printing then new images should show
-  up in darged directory
+  up in target directory

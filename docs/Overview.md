@@ -2,8 +2,8 @@
 
 **NOTICE**:
 
-- this is a proof of concept setup, not seruity measures were taken to restrict
-  access to the system. Use at your own risk
+This is a proof of concept setup, no security measures were taken to restrict
+access to the system. Use at your own risk
 
 Initial idea:
 
@@ -15,7 +15,7 @@ Initial idea:
 - taking photos would depend on if the printer is up and printing, there is
   no point in capturing images if printer is off or not printing, at least
   just for time-lapse videos.
-- taking photos does not have to be realitme or fast, we usually need
+- taking photos does not have to be real time or fast, we usually need
   image once per 10 seconds.
 - I know I can add printer to HomeAssistant, but my experience with
   HomeAssistant is a bit problematic, mainly because development phase.

@@ -12,6 +12,6 @@
 - extra app to process images into a movie - [ffmpeg](https://ffmpeg.org/)
   will work here very well
 
-- 3D priter network enabled and access key - when you configure priter
+- 3D printer network enabled and access key - when you configure printer
   via LCD menu, then there is an option to show access key for the API.
   Write that down.

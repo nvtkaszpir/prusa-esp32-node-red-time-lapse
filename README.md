@@ -36,3 +36,10 @@ Details:
   Will do updates later on
 
 - basic web ui dashboard, it's crap but provides core info :)
+
+![printer status flow](docs/static/prusa_printer_status-fs8.png)
+
+![cam screenshot flow](docs/static/prusa_cam_screenshot-fs8.png)
+
+
+![web_ui](docs/static/web_ui-fs8.png)
