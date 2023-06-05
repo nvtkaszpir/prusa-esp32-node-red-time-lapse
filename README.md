@@ -14,6 +14,9 @@ Details:
 - [Further steps](docs/Further.steps.md)
 
 
+https://github.com/nvtkaszpir/prusa-esp32-node-red-time-lapse/assets/1480252/9d08c0c2-bd34-430f-b20b-ba48656a8d91
+
+
 ## What works
 
 - node-RED + mqtt in containers (docker), could be run directly on host
