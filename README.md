@@ -15,7 +15,8 @@ Details:
 - [Configuring esp32](docs/Configuring.esp32.md)
 - [Configuring printer](docs/Configuring.printer.md)
 - [Configuring host](docs/Configuring.host.md)
-- [node-RED Flow](docs/Configuring.node-red.flow.md)
+- [Node-RED Flow configuration](docs/Configuring.node-red.flow.md)
+- [Capturing images and making video](docs/Capturing.video.md)
 - [Further steps](docs/Further.steps.md)
 
 
@@ -38,10 +39,7 @@ https://github.com/nvtkaszpir/prusa-esp32-node-red-time-lapse/assets/1480252/9d0
   and store images there - easier to manage if printing more than one thing in
   a sequence
 
-- due to the fact I run it in container which does not have ffmpeg I need to
-  manually execute script to merge images into a video, I bet that can be fixed
-  by just installing ffmpeg within container but for now I wanted to avoid it.
-  Will do updates later on
+- ffmpeg in container but no automation to merge images in flows
 
 - basic web ui dashboard, it's crap but provides core info :)
 
