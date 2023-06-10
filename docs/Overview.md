@@ -20,4 +20,4 @@ Initial idea:
 - I know I can add printer to HomeAssistant, but my experience with
   HomeAssistant is a bit problematic, mainly because development phase.
   I've decided to try something I always wanted to use but never had
-  an urge to implement, and that is [node-RED](https://nodered.org/) .
+  an urge to implement, and that is [Node-RED](https://nodered.org/) .

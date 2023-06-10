@@ -1,6 +1,11 @@
 # prusa-esp32-node-red-time-lapse
 
-Taking time lapse videos from Prusa prints using esp32 camera and node-red
+Taking time lapse videos from Prusa prints using esp32 camera and Node-RED.
+
+Node-RED checks periodically if printer is up and printing.
+If it prints then Node-RED takes picutre via web from esp32 camera,
+and stores it in local directory.
+After print images can be merged into a .mp4 movie.
 
 Details:
 
@@ -19,7 +24,7 @@ https://github.com/nvtkaszpir/prusa-esp32-node-red-time-lapse/assets/1480252/9d0
 
 ## What works
 
-- node-RED + mqtt in containers (docker), could be run directly on host
+- Node-RED + mqtt in containers (docker), could be run directly on host
 - logic flow - capturing images to directory if printer is printing
 - rendering images into a movie using ffmpeg (externally executed)
 
@@ -46,3 +51,30 @@ https://github.com/nvtkaszpir/prusa-esp32-node-red-time-lapse/assets/1480252/9d0
 
 
 ![web_ui](docs/static/web_ui-fs8.png)
+
+## TODO
+
+- script to process dumped flow and strip sensitive data with jq, so that
+  it can be added to git safely
+
+- script to process flows from git with secrets.json to replace entries,
+  also provide secrets.json.dist as an example for input with some comments
+
+- check docker-compose
+
+- make Dockerfile for Node-RED with ffmpeg
+
+- merge flows into one with optional trigger?
+
+- do single trigger and fetch image from esp32 once
+  and based on printer status save it
+
+- take printer model or some unique printing id + print start time
+  and set it as target directory name and save files there
+
+- if printer was printing for lest say 1min and stops printing
+  then trigger script to merge images to video,
+  detect printer state if paused or waiting for action
+
+- we got mp4, now what? Node-RED web expose?
+  what about file cleanups after some time?

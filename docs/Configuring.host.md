@@ -18,10 +18,10 @@
 - configure MQTT server
   see example `mqtt/config/` dir
 
-- install node-RED
+- install Node-RED
   see [docs](https://nodered.org/docs/getting-started/local)
 
-- configure node-RED by installing extra plugins
+- configure Node-RED by installing extra plugins
   required plugins
   - `node-red-contrib-file-manager` - write files
   - `node-red-contrib-image-output` - image preview
@@ -29,8 +29,8 @@
   - `node-red-contrib-ui-led` - web ui component
   - `node-red-dashboard` - web UI
 
-- accessing node-RED dashboard
-  - go to address of the node-red and append `/ui` at the end of the address
+- accessing Node-RED dashboard
+  - go to address of the Node-RED  (default port 8080) and append `/ui` at the end of the address
 
 ## In docker containers
 

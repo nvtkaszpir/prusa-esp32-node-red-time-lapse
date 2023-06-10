@@ -2,5 +2,5 @@
 
 Now you can tweak the setup for your needs.
 
-- adding node-red code to git
+- adding Node-RED code to git
 - trigger other automations based on printer state

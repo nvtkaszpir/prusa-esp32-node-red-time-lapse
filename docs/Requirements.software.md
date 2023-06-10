@@ -4,9 +4,9 @@
   for now is to install [esphome](https://esphome.io/) with 
   [camera](https://esphome.io/components/esp32_camera.html) with 
   [web component](https://esphome.io/components/esp32_camera_web_server.html)
-- MQTT server (via mosquitto) which is required for node-RED to operate
+- MQTT server (via mosquitto) which is required for Node-RED to operate
   can be installed in container or directly on host
-- logic - [node-RED](https://nodered.org/) with the flows which holds and 
+- logic - [Node-RED](https://nodered.org/) with the flows which holds and 
   executes the logic if the photo should be taken and stored. Can be installed
   in container or directly on host
 - extra app to process images into a movie - [ffmpeg](https://ffmpeg.org/)
