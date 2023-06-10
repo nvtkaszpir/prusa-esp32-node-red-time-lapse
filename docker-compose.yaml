@@ -4,6 +4,8 @@ services:
   node-red:
     container_name: nodered
     image: nodered/node-red
+    build:
+      dockerfile: node-red/Dockerfile
     ports:
       - "0.0.0.0:1880:1880/tcp" # you can restrict it to specific IP address if you want
     environment:

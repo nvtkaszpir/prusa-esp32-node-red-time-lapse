@@ -1,0 +1,6 @@
+.git
+docs
+esphome
+mqtt
+node-red
+docker-compose.yaml
