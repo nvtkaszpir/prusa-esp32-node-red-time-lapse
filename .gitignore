@@ -1,0 +1,4 @@
+.env
+mqtt/data/
+mqtt/log/
+node-red/data/

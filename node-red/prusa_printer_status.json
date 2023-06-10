@@ -15,7 +15,7 @@
         "method": "GET",
         "ret": "obj",
         "paytoqs": "ignore",
-        "url": "http://PRUSA_MINI_HOST_ADDRESS/api/printer",
+        "url": "http://${PRUSA_MINI_HOST_ADDRESS}/api/printer",
         "tls": "",
         "persist": false,
         "proxy": "",
@@ -27,7 +27,7 @@
                 "keyType": "other",
                 "keyValue": "X-Api-Key",
                 "valueType": "other",
-                "valueValue": "PRUSA_API_KEY"
+                "valueValue": "${PRUSA_API_KEY}"
             }
         ],
         "credentials": {},
@@ -337,7 +337,7 @@
         "method": "GET",
         "ret": "bin",
         "paytoqs": "ignore",
-        "url": "http://ESP32_CAMERA_ADDRESS:8081",
+        "url": "http://${ESP32_CAMERA_ADDRESS}:8081",
         "tls": "",
         "persist": false,
         "proxy": "",
