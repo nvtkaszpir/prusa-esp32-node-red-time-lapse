@@ -7,7 +7,7 @@ The code in version v1 was done in such way that:
 
 - all in one flow (makes flow copies REALLY easier)
 - it is easier to add additional printers (or cameras)
-  as new flows or copy/paste fragmets of flow
+  as new flows or copy/paste fragments of flow
 - it is easier to alter existing printer API parsing easier,
   just edit the `is printing?` node, especially if it returns JSON objects.
 

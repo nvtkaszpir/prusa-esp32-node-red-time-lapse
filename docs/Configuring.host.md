@@ -45,5 +45,5 @@ docker-compose up -d --build
 
 - accessing Node-RED editor - http://127.0.0.1:1880
 - accessing Node-RED dashboard - http://127.0.0.1:1880/ui
-- accessing fake prusa API - http://127.0.0.1:5000/
-- accessing fake esp32 camera - http://127.0.0.1:8888/
+- accessing fake_prusa API - http://127.0.0.1:5000/
+- accessing fake_esp32_camera - http://127.0.0.1:8888/

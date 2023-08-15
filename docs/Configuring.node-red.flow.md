@@ -18,7 +18,7 @@ If needed you can copy flow if you need multiple printers etc.
 - edit node `general config` in top left corner, in the tab `On Start`,
   edit `save_path_root` if you have different printers to avoid file save overwrites and overall mess
   for example `/data/prusa/my-printer-1`;
-  set prusa printer endpoint and access key (`printer_api_address` and `printer_api_key`);
+  set printer endpoint and access key (`printer_api_address` and `printer_api_key`);
   set esp32 camera address endpoint (`esp32_camera_address`);
   double check ports used!
 - deploy flows

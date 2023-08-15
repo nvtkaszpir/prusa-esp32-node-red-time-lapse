@@ -3,7 +3,7 @@
 Taking time lapse videos from Prusa prints using esp32 camera and Node-RED.
 
 Node-RED checks periodically if printer is up and printing.
-If it prints then Node-RED takes picutre via web from esp32 camera,
+If it prints then Node-RED takes picture via web from esp32 camera,
 and stores it in local directory.
 After print images can be merged into a .mp4 movie.
 
@@ -35,7 +35,7 @@ https://github.com/nvtkaszpir/prusa-esp32-node-red-time-lapse/assets/1480252/9d0
 - ffmpeg in container + shell script to merge images into a mp4 file
 - basic web ui dashboard, it's crap but provides core info :)
 
-- defult docker-compose spawns fake prusa api and fake esp32 camera,
+- default docker-compose spawns fake prusa api and fake esp32 camera,
   this is great to test flows and adjust them without need of using real hardware
 - fixed issues with out of order frames
 
@@ -49,12 +49,12 @@ https://github.com/nvtkaszpir/prusa-esp32-node-red-time-lapse/assets/1480252/9d0
   first, it allows to add 'final' frame when printer head is away from print,
   second, it allows to not trigger actions on failed messages
 - before rendering videos there is not much info on the dashboard
-- video progress is showing yellow dot only if ffdshow runs for over 10s
+- video progress is showing yellow dot only if ffmpeg runs for over 10s
 - can not get rendered video from the dashboard - out of scope -use other flows for that,
   there is one that allows to browse files via web ui ,
   or just mount data dir as samba share etc
-- if camera fetch occures there is no retry to fetch it,
-  this is rather not an issue because ffdshow will automatically detect incorrect images
+- if camera fetch error occurs there is no retry to fetch it,
+  this is rather not an issue because ffmpeg will automatically detect incorrect images
   and will not add them to video
 - rendered images and videos are not cleaned up, you must manage data dir on your own
 

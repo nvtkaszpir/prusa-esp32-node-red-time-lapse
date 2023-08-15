@@ -4,10 +4,10 @@
 
 - on default setup you will get docker-compose and spawned containers
   which can be used to fake real hardware
-- fake prusa fakes Prusa Mini+ API, see port 5000 for more,
+- fake_prusa fakes Prusa Mini+ API, see port 5000 for more,
   you can press on/off button to simulate printer operation,
   remember there is a delay before print so be patient (like 30s)
-- fake camer fakes esp32 camera, and on port 8888 it just returns
+- fake_camera fakes esp32 camera, and on port 8888 it just returns
   some black text on gray background
 
 # Using real hardware
