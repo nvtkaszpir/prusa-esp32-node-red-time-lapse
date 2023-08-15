@@ -1,6 +1,28 @@
 version: "3"
 
 services:
+  fake-prusa:
+    container_name: fake_prusa
+    build:
+      context: .
+      dockerfile: fake_prusa_api/Dockerfile
+    ports:
+      - "0.0.0.0:5000:5000/tcp" # you can restrict it to specific IP address if you want
+    environment:
+      TZ: 'UTC/Etc'
+    restart: unless-stopped
+
+  fake-esp32camera:
+    container_name: fake_esp32camera
+    build:
+      context: .
+      dockerfile: fake_camera/Dockerfile
+    ports:
+      - "0.0.0.0:8888:8888/tcp" # you can restrict it to specific IP address if you want
+    environment:
+      TZ: 'UTC/Etc'
+    restart: unless-stopped
+
   node-red:
     container_name: nodered
     image: nodered/node-red
