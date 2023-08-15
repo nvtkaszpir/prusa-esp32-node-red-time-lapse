@@ -24,11 +24,14 @@
 - configure Node-RED by installing extra plugins
   required plugins - this can be done via `Manage Palette`
   or `npm install <package-name>`, Dockerfile already has it:
-  - `node-red-contrib-file-manager` - write files
-  - `node-red-contrib-image-output` - image preview
-  - `node-red-contrib-moment` - timestamp formatting
-  - `node-red-contrib-ui-led` - web ui component
-  - `node-red-dashboard` - web UI
+    ```shell
+    node-red-contrib-counter
+    node-red-contrib-image-output
+    node-red-contrib-moment
+    node-red-contrib-simple-gate
+    node-red-contrib-ui-led
+    node-red-dashboard
+    ```
 
 
 ## In docker containers
@@ -38,7 +41,9 @@ cd docker
 docker-compose up -d --build
 ```
 
-## Node-RED web access
+### docker-compose service endpoints
 
 - accessing Node-RED editor - http://127.0.0.1:1880
 - accessing Node-RED dashboard - http://127.0.0.1:1880/ui
+- accessing fake prusa API - http://127.0.0.1:5000/
+- accessing fake esp32 camera - http://127.0.0.1:8888/

@@ -12,7 +12,7 @@ pyenv virtualenv fake-prusa
 pyenv activate fake-prusa
 pip install -r requirements.txt
 
-flask run --debug --host 0.0.0.0
+flask run --debug --host 0.0.0.0 --port 5000
 ```
 
 ```bash

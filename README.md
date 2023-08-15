@@ -27,50 +27,53 @@ https://github.com/nvtkaszpir/prusa-esp32-node-red-time-lapse/assets/1480252/9d0
 
 - Node-RED + mqtt in containers (docker), can also run directly on host
 - logic flow - capturing images to directory if printer is printing
-- rendering images into a movie using ffmpeg
-  (I execute it externally not in container yet)
+- rendering images into a movie using ffmpeg within node-red container
+- now whole process is within single flow, and you can run multiple flows if you have different printers/cameras
+- you can define default values per flow such as destination directory, printer address, camera address
+- if day change is detected (via UTC) then print counter is reset to zero after current print is finished
+- fetch image from camera only once
+- ffmpeg in container + shell script to merge images into a mp4 file
+- basic web ui dashboard, it's crap but provides core info :)
+
+- defult docker-compose spawns fake prusa api and fake esp32 camera,
+  this is great to test flows and adjust them without need of using real hardware
+- fixed issues with out of order frames
 
 ## Known limitations
 
-- could be as one flow, right now camera image is fetched twice
-- only one printer/one camera is supported - would require better modularization
+- you MUST configure node `general config` under `on Startup` and set vars there
 
-- all images are dumped into one directory, I'm planning to add variable to
-  detect if the print is happening and when it started to create directory
-  and store images there - easier to manage if printing more than one thing in
-  a sequence
+![config](docs/static/config-fs8.png)
 
-- ffmpeg in container but no automation to merge images in flows
-
-- basic web ui dashboard, it's crap but provides core info :)
+- screenshot taking/stopping and video render have some delay, this is intentional,
+  first, it allows to add 'final' frame when printer head is away from print,
+  second, it allows to not trigger actions on failed messages
+- before rendering videos there is not much info on the dashboard
+- video progress is showing yellow dot only if ffdshow runs for over 10s
+- can not get rendered video from the dashboard - out of scope -use other flows for that,
+  there is one that allows to browse files via web ui ,
+  or just mount data dir as samba share etc
+- if camera fetch occures there is no retry to fetch it,
+  this is rather not an issue because ffdshow will automatically detect incorrect images
+  and will not add them to video
+- rendered images and videos are not cleaned up, you must manage data dir on your own
 
 ![printer status flow](docs/static/prusa_printer_status-fs8.png)
-
-![cam screenshot flow](docs/static/prusa_cam_screenshot-fs8.png)
-
 
 ![web_ui](docs/static/web_ui-fs8.png)
 
 ## TODO
-
-- check if timelapse script works in node-red container (bash vs alpine)
-
-- ? merge flows into one with optional trigger 
-  do single trigger and fetch image from esp32 once
-  and based on printer status save it
-
-- take printer model or some unique printing id + print start time
-  and set it as target directory name and save files there
-
-- we got mp4, now what? Node-RED web expose?
-  what about file cleanups after some time?
-
-- ? if printer was printing for lest say 1min and stops printing
-  then trigger script to merge images to video,
-  detect printer state if paused or waiting for action
 
 - ? script to process dumped flow and strip sensitive data with jq, so that
   it can be added to git safely
 
 - ? script to process flows from git with secrets.json to replace entries,
   also provide secrets.json.dist as an example for input with some comments
+
+## NOT-TODO
+
+Things that will not going to happen:
+
+- adding code to list files for render videos/images in web ui;
+  there are other better solutions there such as
+  [Csongor Varga code](https://flows.nodered.org/flow/44bc7ad491aacb4253dd8a5f757b5407)

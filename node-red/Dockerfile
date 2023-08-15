@@ -18,5 +18,3 @@ RUN npm install -u \
     node-red-contrib-simple-gate \
     node-red-contrib-ui-led \
     node-red-dashboard
-
-# node-red-contrib-file-manager
