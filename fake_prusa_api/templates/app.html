@@ -17,6 +17,9 @@
   <body>
     <div class="mx-auto p-3">
       <div class="border mx-auto p-3" style="width: 200px;">
+        <div>
+          <p>Fake printer api status @ {{ data['host'] }}:{{ data['port'] }}</p>
+        </div>
         <div>Press button below to fake printing state</div>
         <input type="checkbox" class='toggle' data-toggle="toggle">
         <div class='status'>Not Printing</div>

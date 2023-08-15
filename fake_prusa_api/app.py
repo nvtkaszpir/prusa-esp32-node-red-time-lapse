@@ -2,8 +2,13 @@ from flask import Flask
 from flask import json
 from flask import render_template
 from flask import request
+import os
 
 app = Flask(__name__)
+
+port = 5000
+host = os.getenv("HOSTNAME")
+
 
 printer = {
     "status": "Operational",
@@ -35,7 +40,11 @@ def health():
 
 @app.route("/")
 def index():
-    return render_template("app.html")
+    data = {
+        "host": host,
+        "port": port,
+    }
+    return render_template("app.html", data=data)
 
 
 @app.route("/api/printer")

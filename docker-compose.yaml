@@ -4,8 +4,8 @@ services:
   fake-prusa:
     container_name: fake_prusa
     build:
-      context: .
-      dockerfile: fake_prusa_api/Dockerfile
+      context: fake_prusa_api/
+      dockerfile: Dockerfile
     ports:
       - "0.0.0.0:5000:5000/tcp" # you can restrict it to specific IP address if you want
     environment:
@@ -15,8 +15,8 @@ services:
   fake-esp32camera:
     container_name: fake_esp32camera
     build:
-      context: .
-      dockerfile: fake_camera/Dockerfile
+      context: fake_camera/
+      dockerfile: Dockerfile
     ports:
       - "0.0.0.0:8888:8888/tcp" # you can restrict it to specific IP address if you want
     environment:
@@ -27,8 +27,8 @@ services:
     container_name: nodered
     image: nodered/node-red
     build:
-      context: .
-      dockerfile: node-red/Dockerfile
+      context: node-red/
+      dockerfile: Dockerfile
     ports:
       - "0.0.0.0:1880:1880/tcp" # you can restrict it to specific IP address if you want
     environment:

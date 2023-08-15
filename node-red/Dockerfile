@@ -8,7 +8,7 @@ LABEL org.opencontainers.image.source="https://github.com/nvtkaszpir/prusa-esp32
 USER 0
 RUN apk update \
         && apk add ffmpeg
-
+COPY bin/timelapse.sh /bin/timelapse.sh
 USER node-red
 
 RUN npm install -u \
