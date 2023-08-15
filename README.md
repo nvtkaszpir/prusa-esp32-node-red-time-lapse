@@ -18,9 +18,15 @@ Details:
 - [Node-RED Flow configuration](docs/Configuring.node-red.flow.md)
 - [Capturing images and making video](docs/Capturing.video.md)
 - [Further steps](docs/Further.steps.md)
+- [Hacking](docs/Hacking.md)
 
 
 https://github.com/nvtkaszpir/prusa-esp32-node-red-time-lapse/assets/1480252/9d08c0c2-bd34-430f-b20b-ba48656a8d91
+
+
+![printer status flow](docs/static/prusa_printer_status-fs8.png)
+
+![web_ui](docs/static/web_ui-fs8.png)
 
 
 ## What works
@@ -58,9 +64,6 @@ https://github.com/nvtkaszpir/prusa-esp32-node-red-time-lapse/assets/1480252/9d0
   and will not add them to video
 - rendered images and videos are not cleaned up, you must manage data dir on your own
 
-![printer status flow](docs/static/prusa_printer_status-fs8.png)
-
-![web_ui](docs/static/web_ui-fs8.png)
 
 ## TODO
 
