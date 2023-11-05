@@ -35,8 +35,9 @@ job = {
 
 @app.route("/health")
 def health():
-    result ="OK"
+    result = "OK"
     return result
+
 
 @app.route("/")
 def index():

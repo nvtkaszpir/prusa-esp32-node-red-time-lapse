@@ -1,6 +1,5 @@
 # Configuring esp32
 
-
 ## First install
 
 - prepare esp32 device and USB cable
@@ -25,3 +24,5 @@
 - install code over web
 - go to esp32 address (`ESP32_CAMERA_ADDRESS`),
   check if web address returns screenshot on port `8081`
+
+  TODO: configure mqtt topic

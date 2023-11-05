@@ -1,4 +1,4 @@
-# configuring 3D printer
+# Getting 3D printer details
 
 Details for Prusa Mini+ firmware 4.4.1
 

@@ -1,8 +1,11 @@
+# Prusa Mini API examples
+
 Prusa Mini+ 4.4.1
 
-# printing preheat
+## printing preheat
 
-printer
+printer:
+
 ```text
 {"telemetry":{
   "temp-bed":36.3,"temp-nozzle":92.9,"print-speed":100,"z-height":0.0,"material":"PETG"
@@ -16,7 +19,8 @@ printer
     "operational":false,"paused":false,"printing":true,"cancelling":false,"pausing":false,"sdReady":false,"error":false,"closedOnError":false,"ready":false,"busy":false}}}
 ```
 
-job
+job:
+
 ```text
 {"state":"Printing",
   "job":{
@@ -31,10 +35,10 @@ job
     "completion":0.00,"printTime":39,"printTimeLeft":660}}
 ```
 
+## print finished, waiting in menu on 100%
 
-# print finished, waiting in menu on 100%
+printer:
 
-printer
 ```text
 {"telemetry":{"temp-bed":27.3,"temp-nozzle":26.9,"print-speed":100,"z-height":39.1,"material":"PETG"},
 "temperature":{
@@ -46,14 +50,16 @@ printer
     "operational":true,"paused":false,"printing":false,"cancelling":false,"pausing":false,"sdReady":false,"error":false,"closedOnError":false,"ready":true,"busy":false}}}
 ```
 
-job
+job:
+
 ```text
 {"state":"Operational","job": null,"progress": null}
 ```
 
-# normal idle in menu
+## normal idle in menu
 
-printer
+printer:
+
 ```text
 {"telemetry":{"temp-bed":27.3,"temp-nozzle":26.8,"print-speed":100,"z-height":39.1,"material":"PETG"},
 "temperature":{
@@ -65,7 +71,8 @@ printer
         "operational":true,"paused":false,"printing":false,"cancelling":false,"pausing":false,"sdReady":false,"error":false,"closedOnError":false,"ready":true,"busy":false}}}
 ```
 
-job
+job:
+
 ```text
 {"state":"Operational","job": null,"progress": null}
 ```

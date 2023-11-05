@@ -1,6 +1,6 @@
 # Capturing images
 
-# Using default docker-compose
+## Using default docker-compose
 
 - on default setup you will get docker-compose and spawned containers
   which can be used to fake real hardware
@@ -10,7 +10,7 @@
 - fake_camera fakes esp32 camera, and on port 8888 it just returns
   some black text on gray background
 
-# Using real hardware
+## Using real hardware
 
 - if above works, just update `generic config` in the flow
   and provide real endpoints data for printer and the camera
@@ -23,4 +23,3 @@
 - Check destination directory where Node-RED writes files, there
   should be a new file every 10 seconds.
 - after about 40s check if there is an output of the rendered video
-

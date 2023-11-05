@@ -12,7 +12,7 @@ If needed you can copy flow if you need multiple printers etc.
 
 ### Detailed howto
 
-- go to Node-RED editor http://127.0.0.1:1880/
+- go to Node-RED editor [http://127.0.0.1:1880/](http://127.0.0.1:1880/)
 - import `flows/prusa_v1.json` to Node-RED.
 - if you have duplicated elements then replace them (especially for web-ui)
 - edit node `general config` in top left corner, in the tab `On Start`,
@@ -21,6 +21,10 @@ If needed you can copy flow if you need multiple printers etc.
   set printer endpoint and access key (`printer_api_address` and `printer_api_key`);
   set esp32 camera address endpoint (`esp32_camera_address`);
   double check ports used!
+  TODO: configure mqtt topic
 - deploy flows
-- check Node-RED web ui for status http://127.0.0.1:1880/ui
+- check Node-RED web ui for status [http://127.0.0.1:1880/ui](http://127.0.0.1:1880/ui)
+- check if pressing button triggers sending message to MQTT
+- check if the flow in Node-RED is triggered from mqtt message topic - that's why leds are useful
+  because you should get back led light if flow was triggered
 - try example print - see [Capturing video](Capturing.video.md)

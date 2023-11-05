@@ -4,7 +4,6 @@ Simulates very basic Prusa Mini+ API, by running flask with static content and
 toggle button to switch between 'printing' and 'not printing' state, so
 it is easier to test code with other tools.
 
-
 ## Usage
 
 ```bash

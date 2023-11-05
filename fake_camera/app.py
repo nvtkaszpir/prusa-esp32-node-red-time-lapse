@@ -9,22 +9,24 @@ from io import BytesIO
 from PIL import Image, ImageFont, ImageDraw
 import os
 
-port = 8888 # yeah whatever
+port = 8888  # yeah whatever
 host = os.getenv("HOSTNAME")
 width = 640
 height = 480
 
 camera = Flask(__name__)
 
+
 @camera.route("/health")
 def health():
-    result ="OK"
+    result = "OK"
     return result
+
 
 @camera.route("/")
 def index():
     # prepare image and write timestamp on it
-    img  = Image.new(mode="RGB", size=(width, height), color=(200,200,200))
+    img = Image.new(mode="RGB", size=(width, height), color=(200, 200, 200))
     img_draw = ImageDraw.Draw(img)
     time_now = datetime.utcnow()
     text = "fake_esp32camera \n"
@@ -38,8 +40,9 @@ def index():
     stream = BytesIO()
     img.save(stream, "JPEG", quality=80, optimize=True, progressive=True)
     stream.seek(0)
-    result = send_file(stream, mimetype='image/jpeg')
+    result = send_file(stream, mimetype="image/jpeg")
     return result
+
 
 if __name__ == "__main__":
     camera.run()

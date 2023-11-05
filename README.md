@@ -2,35 +2,28 @@
 
 Taking time lapse videos from Prusa prints using esp32 camera and Node-RED.
 
-Node-RED checks periodically if printer is up and printing.
-If it prints then Node-RED takes picture via web from esp32 camera,
-and stores it in local directory.
-After print images can be merged into a .mp4 movie.
+Using custom gcode printer triggers button with every new layer.
+Pressing the button sends message from esp32 to MQTT topic.
+When message from specific topic is received then it triggers flow in Node-RED.
+In the flow there is a check if the printer is printing, and thus
+it takes picture via web from esp32 camera, and stores it in local directory.
+If the print of the printer stops then it triggers rendering images into a mp4 video.
 
-Details:
+**See [docs/README.md](docs/README.md) for detailed instructions**
 
-- [Overview](docs/Overview.md)
-- [Hardware Requirements](docs/Requirements.hardware.md)
-- [Software Requirements](docs/Requirements.software.md)
-- [Configuring esp32](docs/Configuring.esp32.md)
-- [Configuring printer](docs/Configuring.printer.md)
-- [Configuring host](docs/Configuring.host.md)
-- [Node-RED Flow configuration](docs/Configuring.node-red.flow.md)
-- [Capturing images and making video](docs/Capturing.video.md)
-- [Further steps](docs/Further.steps.md)
-- [Hacking](docs/Hacking.md)
+TODO - add better time lapse video with gcode
 
-
-https://github.com/nvtkaszpir/prusa-esp32-node-red-time-lapse/assets/1480252/9d08c0c2-bd34-430f-b20b-ba48656a8d91
-
+![timelapse video](https://github.com/nvtkaszpir/prusa-esp32-node-red-time-lapse/assets/1480252/9d08c0c2-bd34-430f-b20b-ba48656a8d91)
 
 ![printer status flow](docs/static/prusa_printer_status-fs8.png)
 
 ![web_ui](docs/static/web_ui-fs8.png)
 
-
 ## What works
 
+- trigger button via custom gcode
+- trigger flow when button is pressed
+- trigger video render if printer was printing and stopped printing
 - Node-RED + mqtt in containers (docker), can also run directly on host
 - logic flow - capturing images to directory if printer is printing
 - rendering images into a movie using ffmpeg within node-red container
@@ -47,6 +40,11 @@ https://github.com/nvtkaszpir/prusa-esp32-node-red-time-lapse/assets/1480252/9d0
 
 ## Known limitations
 
+- due to using custom gcode it takes a bit time to tune button triggering,
+  but you can manually trigger flow in Node-RED.
+- if you have print in the bed corner close to where power connector is attached to bed,
+  then it can trigger button presses and thus extra image captures,
+  that's why it is better to adjust print area to avoid movements in that space, if possible.
 - if you deploy node-red flow then counter for daily print is reset,
   which results in files to be saved in already existing directories and video
   may not be rendered because it already exists, or it will be merged from
@@ -59,10 +57,10 @@ https://github.com/nvtkaszpir/prusa-esp32-node-red-time-lapse/assets/1480252/9d0
   first, it allows to add 'final' frame when printer head is away from print,
   second, it allows to not trigger actions on failed messages
 - before rendering videos there is not much info on the dashboard
-- video progress is showing yellow dot only if ffmpeg runs for over 10s
-- can not get rendered video from the dashboard - out of scope -use other flows for that,
-  there is one that allows to browse files via web ui ,
-  or just mount data dir as samba share etc
+- video progress is showing yellow dot on the dashboard only if ffmpeg runs for over 10s
+- can not get rendered video from the dashboard - out of scope - use other flows for that,
+  there is one that allows to browse files via web ui,
+  or just mount data dir as samba share etc, see below
 - if camera fetch error occurs there is no retry to fetch it,
   this is rather not an issue because ffmpeg will automatically detect incorrect images
   and will not add them to video
@@ -78,14 +76,14 @@ Things that will not going to happen:
 
 ## TODO
 
+- make v1 branch for current code
+- update flow with new one
 
 - ? script to process dumped flow and strip sensitive data with jq, so that
   it can be added to git safely
 
 - ? script to process flows from git with secrets.json to replace entries,
   also provide secrets.json.dist as an example for input with some comments
-
-- make v1 branch for current code
 
 - make v2 branch for future code, see below
 

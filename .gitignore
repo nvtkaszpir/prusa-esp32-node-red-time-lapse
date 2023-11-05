@@ -3,3 +3,4 @@ mqtt/data/
 mqtt/log/
 node-red/data/
 __pycache__/
+*.py[cod]

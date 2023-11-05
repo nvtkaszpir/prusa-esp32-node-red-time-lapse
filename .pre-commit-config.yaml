@@ -1,0 +1,61 @@
+---
+# This file configures https://pre-commit.com/
+# to use specific hooks and options.
+
+fail_fast: false
+
+repos:
+- repo: https://github.com/adrienverge/yamllint.git
+  rev: v1.29.0
+  hooks:
+  - id: yamllint
+
+- repo: https://github.com/editorconfig-checker/editorconfig-checker.python
+  rev: '2.7.3'  # pick a git hash / tag to point to
+  hooks:
+  - id: editorconfig-checker
+    alias: ec
+
+- repo: https://github.com/igorshubovych/markdownlint-cli
+  rev: v0.37.0
+  hooks:
+  - id: markdownlint
+
+- repo: https://github.com/pre-commit/pre-commit-hooks
+  rev: v4.5.0  # Use the ref you want to point at
+  hooks:
+  - id: check-executables-have-shebangs
+  - id: check-merge-conflict
+  - id: check-shebang-scripts-are-executable
+  - id: check-symlinks
+  - id: end-of-file-fixer
+  - id: trailing-whitespace
+
+# Using this mirror lets us use mypyc-compiled black, which is about 2x faster
+- repo: https://github.com/psf/black-pre-commit-mirror
+  rev: 23.10.1
+  hooks:
+  - id: black
+    # It is recommended to specify the latest version of Python
+    # supported by your project here, or alternatively use
+    # pre-commit's default_language_version, see
+    # https://pre-commit.com/#top_level-default_language_version
+    language_version: python3.10
+
+- repo: https://github.com/iamthefij/docker-pre-commit
+  rev: d67a852ae8e153db8b9179458272f46c89a4c0f0
+  hooks:
+  - id: docker-compose-check
+
+- repo: https://github.com/scop/pre-commit-shfmt
+  rev: v3.7.0-1
+  hooks:
+  - id: shfmt         # native (requires/installs Go to build)
+
+- repo: https://github.com/jumanjihouse/pre-commit-hooks
+  rev: 3.0.0  # or specific git tag
+  hooks:
+  - id: git-check
+  # - id: git-dirty
+  - id: shellcheck
+  - id: shfmt
