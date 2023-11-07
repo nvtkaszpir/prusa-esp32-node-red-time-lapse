@@ -7,15 +7,15 @@ access to the system. Use at your own risk
 
 Initial idea:
 
-- no need extra tools like octoprint
-- uses gcode per layer to trigger physical button to trigger image capture
-
 - making time lapse videos without any special software which would control
   3D printer - PrusaSlicer and original Prusa firmware are just working
   perfectly well in my case, so I wanted to avoid any specialized software
-  that alters `gcode` or requires access printer via USB.
+  that alters `gcode` in realtime or requires access printer via USB.
   The fact that Prusa Mini has basic web API and PrusaSlicer allows defining
   custom gcode per layer makes this possible.
+
+- above assumes that custom gcode per layer is used trigger physical button
+  to furhter trigger image capture
 
 - taking photos would depend on if the printer is up and printing, there is
   no point in capturing images if printer is off or not printing, at least

@@ -55,3 +55,20 @@ services:
       interval: 30s
       timeout: 10s
       retries: 3
+
+  esphome:
+    container_name: esphome
+    image: esphome/esphome:2023.10
+    # network_mode: host # uncomment to actually run on the host network and would be able to discover certain devices
+    ports:
+      - "6052:6052/tcp"
+    environment:
+      TZ: 'UTC/Etc'
+    volumes:
+      - "./esphome:/config:rw"
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "curl", "--max-time", "5", "--no-keepalive", "--fail", "--write-out", "'\n'", "http://0.0.0.0:6052/version"]
+      interval: 30s
+      timeout: 10s
+      retries: 3

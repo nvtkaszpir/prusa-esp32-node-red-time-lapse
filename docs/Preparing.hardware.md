@@ -16,13 +16,19 @@ especially to button and LED legs.
 - if using reed switch then attach magnet to the print head, can be a metal
   or plastic strip screwed to the print head, and magnet on the end of the strip.
 
-  TODO: add photo
+  ![reed off](static/reed_off-fs8.png)
 
-- if using limit microswitch it may require printing switch mounting
-  TODO: add url to my dumb model, upload model to repo
+  ![reed on](static/reed_on-fs8.png)
+
+  notice the mighty power of hot glue :)
+
+- if using limit microswitch it may require printing switch mounting,
+  for Prusa Mini you may be interested in [my step motor brace](https://www.printables.com/model/581008-prusa-mini-step-motor-brace-with-45deg-block)
 
 ## Signaling LEDs
 
-- attach resistors to color LEDs and attach jumper wires
-- connect LED cables to the esp32, make sure you do not mix polarity
-  TODO: add more details about polarity and pins
+- attach resistors to color LEDs
+- attach jumper wires - connect LED cables to the esp32, make sure you do not mix polarity
+  (note to self - `flat spot` to the `ground`) [wikipedia](https://commons.wikimedia.org/wiki/File:LED,_5mm,_green_(en).svg)
+- `GPIO12` pin for green led
+- `GPIO14` pin for red led

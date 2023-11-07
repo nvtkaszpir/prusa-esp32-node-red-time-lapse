@@ -1,6 +1,25 @@
 # Configuring host
 
+## In docker containers
+
+Notice that changing `esphome` to `network_mode: host` in docker-compose may be preferable
+to actually make it working with certain devices (autodiscovery).
+
+```shell
+cd docker
+docker-compose up -d --build
+```
+
+### docker-compose service endpoints
+
+- accessing Node-RED editor - [http://127.0.0.1:1880](http://127.0.0.1:1880)
+- accessing Node-RED dashboard - [http://127.0.0.1:1880/ui](http://127.0.0.1:1880/ui)
+- accessing fake_prusa API - [http://127.0.0.1:5000/](http://127.0.0.1:5000/)
+- accessing fake_esp32_camera - [http://127.0.0.1:8888/](http://127.0.0.1:8888/)
+
 ## Directly on host
+
+Below examples assume your host is Debian/Ubuntu based on `amd64` platform.
 
 - check connectivity from host to printer and esp32 via curl or wget
 - install ffmpeg
@@ -35,17 +54,3 @@
     node-red-contrib-ui-led
     node-red-dashboard
     ```
-
-## In docker containers
-
-```shell
-cd docker
-docker-compose up -d --build
-```
-
-### docker-compose service endpoints
-
-- accessing Node-RED editor - [http://127.0.0.1:1880](http://127.0.0.1:1880)
-- accessing Node-RED dashboard - [http://127.0.0.1:1880/ui](http://127.0.0.1:1880/ui)
-- accessing fake_prusa API - [http://127.0.0.1:5000/](http://127.0.0.1:5000/)
-- accessing fake_esp32_camera - [http://127.0.0.1:8888/](http://127.0.0.1:8888/)

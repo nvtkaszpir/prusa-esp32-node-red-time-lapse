@@ -153,3 +153,73 @@ esp32_camera_web_server:
     mode: stream
   - port: 8081
     mode: snapshot
+
+light:
+  - platform: monochromatic
+    name: "Green Led" # shows if the image capture flow was executed by Node-RED
+    output: light_green
+    effects:
+      - pulse:
+          name: "Fast Pulse"
+          transition_length: 0.5s
+          update_interval: 0.5s
+          min_brightness: 0%
+          max_brightness: 100%
+  - platform: monochromatic
+    name: "Red Led" # shows if the Node-RED detects that printer is printing and thus image captures are taken
+    output: light_red
+    effects:
+      - pulse:
+          name: "Fast Pulse"
+          transition_length: 0.5s
+          update_interval: 0.5s
+          min_brightness: 0%
+          max_brightness: 100%
+
+output:
+  - id: light_green
+    platform: ledc
+    pin: GPIO12
+  - id: light_red
+    platform: ledc
+    pin: GPIO14
+  # they are hardly visible because 'On' green led is super bright
+  # - id: led_tx
+  #   platform: ledc
+  #   pin: GPIO1
+  # - id: led_rx
+  #   platform: ledc
+  #   pin: GPIO3
+
+binary_sensor:
+  - platform: status
+    name: "${device_name} Status"
+
+  # button which is used to trigger MQTT message which will trigger Node-RED flow
+  - platform: gpio
+    pin:
+      number: GPIO13
+      inverted: true
+      mode:
+        input: true
+        pullup: true
+    name: button_black
+    filters:
+      - delayed_on: 10ms # debounce
+
+mqtt:
+  broker: 192.168.1.30 # this must be docker host address reachable from esp32 device wifi network
+  on_message:
+    - topic: esp32-wrover-0461c8/led_green # we just care about the message we get, but not the message contents
+      then:
+        - output.turn_on: light_green
+        - delay: 250ms
+        - output.turn_off: light_green
+    - topic: esp32-wrover-0461c8/led_red # we just care about the message we get, but not the message contents
+      payload: "open"
+      then:
+        - output.turn_on: light_red
+    - topic: esp32-wrover-0461c8/led_red # we just care about the message we get, but not the message contents
+      payload: "close"
+      then:
+        - output.turn_off: light_red
