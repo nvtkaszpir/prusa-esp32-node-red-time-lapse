@@ -16,8 +16,6 @@ web ui components need changes to avoid field overwrites.
 
 - go to Node-RED editor [http://127.0.0.1:1880/](http://127.0.0.1:1880/)
 - import `flows/prusa_v2.json` to Node-RED.
-  TODO: update flow with v2, remove private data
-
 - if you have duplicated elements then replace them (especially for web-ui)
 - edit node `general config` in top left corner, in the tab `On Start`,
   edit `save_path_root` if you have different printers to avoid file save overwrites (and overall mess)

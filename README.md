@@ -2,6 +2,15 @@
 
 Taking time lapse videos from Prusa prints using esp32 camera and Node-RED.
 
+## Versions
+
+Current v2 version is on master branch and uses custom gcode to trigger images.
+
+For previous version see branch [v1](https://github.com/nvtkaszpir/prusa-esp32-node-red-time-lapse/tree/v1),
+but notice this is not maintained anymore.
+
+## About
+
 Using custom gcode printer triggers button with every new layer.
 Pressing the button sends message from esp32 to MQTT topic.
 When message from specific topic is received then it triggers flow in Node-RED.
@@ -11,9 +20,7 @@ If the print of the printer stops then it triggers rendering images into a mp4 v
 
 **See [docs/README.md](docs/README.md) for detailed instructions**
 
-TODO - add better time lapse video with gcode
-
-![timelapse video](https://github.com/nvtkaszpir/prusa-esp32-node-red-time-lapse/assets/1480252/9d08c0c2-bd34-430f-b20b-ba48656a8d91)
+[timelapse with gcode](https://github.com/nvtkaszpir/prusa-esp32-node-red-time-lapse/assets/1480252/b3dc6f0d-3318-41ae-8bcf-081d0ebd0208)
 
 ![printer status flow](docs/static/prusa_printer_status-fs8.png)
 

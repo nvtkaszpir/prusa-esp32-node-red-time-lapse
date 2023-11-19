@@ -15,7 +15,7 @@ Initial idea:
   custom gcode per layer makes this possible.
 
 - above assumes that custom gcode per layer is used trigger physical button
-  to furhter trigger image capture
+  to further trigger image capture
 
 - taking photos would depend on if the printer is up and printing, there is
   no point in capturing images if printer is off or not printing, at least

@@ -1,0 +1,1687 @@
+[
+    {
+        "id": "9be75eaaa7bfaf87",
+        "type": "tab",
+        "label": "Prusa v2 with gcode",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "52e274ca8a00162d",
+        "type": "junction",
+        "z": "9be75eaaa7bfaf87",
+        "x": 1440,
+        "y": 900,
+        "wires": [
+            [
+                "db48e043ba444239",
+                "46b0b66e8627528d",
+                "0eb78ce4e6299e5a"
+            ]
+        ]
+    },
+    {
+        "id": "857ec085ace53478",
+        "type": "http request",
+        "z": "9be75eaaa7bfaf87",
+        "name": "Printer get status",
+        "method": "GET",
+        "ret": "obj",
+        "paytoqs": "ignore",
+        "url": "",
+        "tls": "",
+        "persist": false,
+        "proxy": "",
+        "insecureHTTPParser": false,
+        "authType": "",
+        "senderr": true,
+        "headers": [
+            {
+                "keyType": "other",
+                "keyValue": "X-Api-Key",
+                "valueType": "msg",
+                "valueValue": "api_key"
+            }
+        ],
+        "x": 570,
+        "y": 560,
+        "wires": [
+            [
+                "14099ba9125196b6",
+                "5afa72a15d5ff53c",
+                "2718a83dbf52c9e9",
+                "273773e72a7453e3"
+            ]
+        ],
+        "info": "Get printer status.\r\nIt assumes url points to the printer API\r\nwhich returns json object.\r\n\r\nIf you use different printer then you may need\r\nto adjust output.\r\n"
+    },
+    {
+        "id": "cb7f18c0d0e5c9f5",
+        "type": "inject",
+        "z": "9be75eaaa7bfaf87",
+        "name": "trigger every 1s",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "1",
+        "crontab": "",
+        "once": true,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 210,
+        "y": 560,
+        "wires": [
+            [
+                "35d6c159a6575d01"
+            ]
+        ]
+    },
+    {
+        "id": "14099ba9125196b6",
+        "type": "debug",
+        "z": "9be75eaaa7bfaf87",
+        "name": "Printer status",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1250,
+        "y": 200,
+        "wires": []
+    },
+    {
+        "id": "5afa72a15d5ff53c",
+        "type": "switch",
+        "z": "9be75eaaa7bfaf87",
+        "name": "is ready?",
+        "property": "payload.state",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "hask",
+                "v": "text",
+                "vt": "str"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 1,
+        "x": 1240,
+        "y": 40,
+        "wires": [
+            [
+                "aa2a21ad6418854e"
+            ]
+        ]
+    },
+    {
+        "id": "85be83ec403296d6",
+        "type": "function",
+        "z": "9be75eaaa7bfaf87",
+        "name": "printer_up false",
+        "func": "// check if printer is up and prepare message for led dashboard\nvar msg = {payload: false};\nreturn msg;\n",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1400,
+        "y": 80,
+        "wires": [
+            [
+                "c427d71968219580"
+            ]
+        ]
+    },
+    {
+        "id": "aa2a21ad6418854e",
+        "type": "function",
+        "z": "9be75eaaa7bfaf87",
+        "name": "printer_up true",
+        "func": "// check if printer is up and prepare message for led dashboard\nvar msg = {payload: true};\nreturn msg;\n",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1400,
+        "y": 40,
+        "wires": [
+            [
+                "c427d71968219580"
+            ]
+        ]
+    },
+    {
+        "id": "a425b54bb7d6b651",
+        "type": "catch",
+        "z": "9be75eaaa7bfaf87",
+        "name": "",
+        "scope": [
+            "857ec085ace53478"
+        ],
+        "uncaught": false,
+        "x": 1250,
+        "y": 80,
+        "wires": [
+            [
+                "85be83ec403296d6"
+            ]
+        ]
+    },
+    {
+        "id": "c427d71968219580",
+        "type": "ui_led",
+        "z": "9be75eaaa7bfaf87",
+        "order": 3,
+        "group": "47e3e9ed88608d27",
+        "width": 0,
+        "height": 0,
+        "label": "Printer Up",
+        "labelPlacement": "left",
+        "labelAlignment": "left",
+        "colorForValue": [
+            {
+                "color": "#ff0000",
+                "value": "false",
+                "valueType": "bool"
+            },
+            {
+                "color": "#90ee90",
+                "value": "true",
+                "valueType": "bool"
+            }
+        ],
+        "allowColorForValueInMessage": false,
+        "shape": "circle",
+        "showGlow": true,
+        "name": "Printer Up",
+        "x": 1600,
+        "y": 60,
+        "wires": []
+    },
+    {
+        "id": "7efc8343354c5403",
+        "type": "ui_led",
+        "z": "9be75eaaa7bfaf87",
+        "order": 6,
+        "group": "47e3e9ed88608d27",
+        "width": 0,
+        "height": 0,
+        "label": "Printing?",
+        "labelPlacement": "left",
+        "labelAlignment": "left",
+        "colorForValue": [
+            {
+                "color": "#ff0000",
+                "value": "false",
+                "valueType": "bool"
+            },
+            {
+                "color": "#90ee90",
+                "value": "true",
+                "valueType": "bool"
+            }
+        ],
+        "allowColorForValueInMessage": false,
+        "shape": "circle",
+        "showGlow": true,
+        "name": "Printing",
+        "x": 1460,
+        "y": 120,
+        "wires": []
+    },
+    {
+        "id": "e8d50ba9e766d428",
+        "type": "http request",
+        "z": "9be75eaaa7bfaf87",
+        "name": "esp32 camera",
+        "method": "GET",
+        "ret": "bin",
+        "paytoqs": "ignore",
+        "url": "",
+        "tls": "",
+        "persist": false,
+        "proxy": "",
+        "insecureHTTPParser": false,
+        "authType": "",
+        "senderr": false,
+        "headers": [],
+        "x": 1120,
+        "y": 900,
+        "wires": [
+            [
+                "b6cda9dc83dfc2a2"
+            ]
+        ]
+    },
+    {
+        "id": "0eb78ce4e6299e5a",
+        "type": "image",
+        "z": "9be75eaaa7bfaf87",
+        "name": "",
+        "width": "640",
+        "data": "payload",
+        "dataType": "msg",
+        "thumbnail": false,
+        "active": true,
+        "pass": true,
+        "outputs": 1,
+        "x": 1620,
+        "y": 1040,
+        "wires": [
+            [
+                "32a13e9a2e330d3f"
+            ]
+        ]
+    },
+    {
+        "id": "f5e49714eb084752",
+        "type": "ui_template",
+        "z": "9be75eaaa7bfaf87",
+        "group": "47e3e9ed88608d27",
+        "name": "",
+        "order": 2,
+        "width": 0,
+        "height": 0,
+        "format": "<img ng-src=\"{{msg.payload}}\"/>",
+        "storeOutMessages": true,
+        "fwdInMessages": true,
+        "resendOnRefresh": true,
+        "templateScope": "local",
+        "className": "",
+        "x": 2040,
+        "y": 1040,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "32a13e9a2e330d3f",
+        "type": "function",
+        "z": "9be75eaaa7bfaf87",
+        "name": "generate html image",
+        "func": "var getImageResult = msg.payload;\nvar b64encoded = getImageResult.toString('base64');\nmsg.payload = \"data:image/jpg;base64,\" + b64encoded;\nreturn msg;\n",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1860,
+        "y": 1040,
+        "wires": [
+            [
+                "f5e49714eb084752"
+            ]
+        ]
+    },
+    {
+        "id": "fc335e39ece6ef2a",
+        "type": "moment",
+        "z": "9be75eaaa7bfaf87",
+        "name": "yyyy-MM-DD_HH-mm-ss",
+        "topic": "",
+        "input": "",
+        "inputType": "date",
+        "inTz": "Etc/UTC",
+        "adjAmount": 0,
+        "adjType": "days",
+        "adjDir": "add",
+        "format": "yyyy-MM-DD_HH-mm-ss",
+        "locale": "en-US",
+        "output": "",
+        "outputType": "msg",
+        "outTz": "Etc/UTC",
+        "x": 730,
+        "y": 900,
+        "wires": [
+            [
+                "9a998f06376f4666"
+            ]
+        ]
+    },
+    {
+        "id": "7ffa7957540a689a",
+        "type": "file",
+        "z": "9be75eaaa7bfaf87",
+        "name": "",
+        "filename": "filename",
+        "filenameType": "msg",
+        "appendNewline": false,
+        "createDir": true,
+        "overwriteFile": "true",
+        "encoding": "none",
+        "x": 1840,
+        "y": 840,
+        "wires": [
+            [
+                "b459e583788d2a5a"
+            ]
+        ],
+        "info": "Do NOT touch encoding, keep it at 'default"
+    },
+    {
+        "id": "46b0b66e8627528d",
+        "type": "gate",
+        "z": "9be75eaaa7bfaf87",
+        "name": "gate: write image",
+        "controlTopic": "control",
+        "defaultState": "closed",
+        "openCmd": "open",
+        "closeCmd": "close",
+        "toggleCmd": "toggle",
+        "defaultCmd": "default",
+        "statusCmd": "status",
+        "persist": false,
+        "storeName": "memory",
+        "x": 1590,
+        "y": 840,
+        "wires": [
+            [
+                "bd77b33574fee57f",
+                "7ffa7957540a689a",
+                "41dea980c01097c3"
+            ]
+        ]
+    },
+    {
+        "id": "b459e583788d2a5a",
+        "type": "debug",
+        "z": "9be75eaaa7bfaf87",
+        "name": "after file write",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1990,
+        "y": 840,
+        "wires": []
+    },
+    {
+        "id": "2718a83dbf52c9e9",
+        "type": "switch",
+        "z": "9be75eaaa7bfaf87",
+        "name": "is printing?",
+        "property": "payload.state.flags.printing",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "true"
+            },
+            {
+                "t": "false"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 2,
+        "x": 830,
+        "y": 560,
+        "wires": [
+            [
+                "b10655616a19a6cd",
+                "63cdbcf32abfcd30",
+                "04fa21ad7b02f777",
+                "87f34fa971d2a328"
+            ],
+            [
+                "1645b0fd8dd4df41"
+            ]
+        ],
+        "info": "Decide if printer is printing based on\r\nincoming message.\r\n\r\nIt assumes incoming payload is json object.\r\n\r\nSpecific condition is adjusted to Prusa Mini+\r\nwith firmware 4.4.1\r\n\r\nIf you use different printer then you may need\r\nto adjust the values accordingly.\r\n"
+    },
+    {
+        "id": "63cdbcf32abfcd30",
+        "type": "function",
+        "z": "9be75eaaa7bfaf87",
+        "name": "set gate to open",
+        "func": "var msg = {\n    payload: \"open\",\n    topic: \"control\",\n}\nflow.set('gate_open', true)\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1100,
+        "y": 580,
+        "wires": [
+            [
+                "5ef2bc9b2ca018b4",
+                "41dea980c01097c3"
+            ]
+        ]
+    },
+    {
+        "id": "1645b0fd8dd4df41",
+        "type": "function",
+        "z": "9be75eaaa7bfaf87",
+        "name": "set gate to close",
+        "func": "var msg = {\n    payload: \"close\",\n    topic: \"control\",\n}\nflow.set('gate_open', false)\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1100,
+        "y": 640,
+        "wires": [
+            [
+                "5ef2bc9b2ca018b4"
+            ]
+        ]
+    },
+    {
+        "id": "bd77b33574fee57f",
+        "type": "debug",
+        "z": "9be75eaaa7bfaf87",
+        "name": "before file write",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "filename",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1820,
+        "y": 880,
+        "wires": []
+    },
+    {
+        "id": "273773e72a7453e3",
+        "type": "function",
+        "z": "9be75eaaa7bfaf87",
+        "name": ".state.flags.printing",
+        "func": "// check if pringing and prepare message for led dashboard\nvar value = false;\nif (msg.payload.state.flags.printing == undefined) {\n    value = false;\n}\nelse {\n    value = msg.payload.state.flags.printing;\n}\n\nvar newmsg = {payload: value};\n\nreturn newmsg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1290,
+        "y": 120,
+        "wires": [
+            [
+                "7efc8343354c5403"
+            ]
+        ]
+    },
+    {
+        "id": "b3adde9709869168",
+        "type": "counter",
+        "z": "9be75eaaa7bfaf87",
+        "name": "print counter",
+        "init": "0",
+        "step": "0",
+        "lower": null,
+        "upper": null,
+        "mode": "increment",
+        "outputs": "1",
+        "x": 1970,
+        "y": 260,
+        "wires": [
+            [
+                "5278ec696f1607cf"
+            ]
+        ]
+    },
+    {
+        "id": "b10655616a19a6cd",
+        "type": "trigger",
+        "z": "9be75eaaa7bfaf87",
+        "name": "trigger print_count bump if printing",
+        "op1": "1",
+        "op2": "",
+        "op1type": "str",
+        "op2type": "nul",
+        "duration": "20",
+        "extend": true,
+        "overrideDelay": false,
+        "units": "s",
+        "reset": "",
+        "bytopic": "all",
+        "topic": "topic",
+        "outputs": 1,
+        "x": 1300,
+        "y": 400,
+        "wires": [
+            [
+                "ec2f34c37ef882e9"
+            ]
+        ]
+    },
+    {
+        "id": "ec2f34c37ef882e9",
+        "type": "change",
+        "z": "9be75eaaa7bfaf87",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "increment",
+                "pt": "msg",
+                "to": "1",
+                "tot": "num"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 1870,
+        "y": 400,
+        "wires": [
+            [
+                "b3adde9709869168"
+            ]
+        ]
+    },
+    {
+        "id": "0acff720821d7555",
+        "type": "moment",
+        "z": "9be75eaaa7bfaf87",
+        "name": "yyyy-MM-DD",
+        "topic": "",
+        "input": "",
+        "inputType": "date",
+        "inTz": "Etc/UTC",
+        "adjAmount": 0,
+        "adjType": "days",
+        "adjDir": "add",
+        "format": "yyyy-MM-DD",
+        "locale": "en-US",
+        "output": "",
+        "outputType": "msg",
+        "outTz": "Etc/UTC",
+        "x": 1510,
+        "y": 460,
+        "wires": [
+            [
+                "f93bbb339a64efcd"
+            ]
+        ]
+    },
+    {
+        "id": "f93bbb339a64efcd",
+        "type": "function",
+        "z": "9be75eaaa7bfaf87",
+        "name": "store date",
+        "func": "flow.set('date', msg.payload)\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1740,
+        "y": 460,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "5278ec696f1607cf",
+        "type": "function",
+        "z": "9be75eaaa7bfaf87",
+        "name": "store print_count",
+        "func": "flow.set('print_count', msg.count)\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 2150,
+        "y": 260,
+        "wires": [
+            [
+                "d80d27ee12c4623e"
+            ]
+        ],
+        "info": "Store print count for given day.\r\n"
+    },
+    {
+        "id": "9a998f06376f4666",
+        "type": "function",
+        "z": "9be75eaaa7bfaf87",
+        "name": "generate data",
+        "func": "// see description of the node for more\n\n// read flow vars\nvar save_path_root = flow.get(\"save_path_root\");\nvar esp32_camera_address = flow.get(\"esp32_camera_address\");\nvar print_count = flow.get(\"print_count\");\nvar date = flow.get(\"date\");\n\n// generate required data\nvar d = new Date();\nvar date_pretty = d.toISOString().\n    replace(/T/, ' ').      // replace T with a space\n    replace(/\\..+/, '')     // delete the dot and everything after\n\nvar datetime = msg.payload;\nvar filename = date + \"_\" + print_count + \"/\" + datetime ;\n\n// generate msg for http request\nvar msg = {\n    url: esp32_camera_address,\n    filename: save_path_root + \"/\" + filename + \".jpg\",\n    datetime: msg.payload,\n    date_pretty: date_pretty,\n}\nreturn msg;\n",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 940,
+        "y": 900,
+        "wires": [
+            [
+                "e8d50ba9e766d428"
+            ]
+        ],
+        "info": "Generate message with specific payload keys which are\r\nused by later nodes:\r\n\r\n- url - by http request module - esp32-camera\r\n- filename - by write file"
+    },
+    {
+        "id": "c3a649a68f4dff25",
+        "type": "inject",
+        "z": "9be75eaaa7bfaf87",
+        "name": "reset print_count",
+        "props": [
+            {
+                "p": "payload"
+            }
+        ],
+        "repeat": "",
+        "crontab": "00 00 * * *",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 1270,
+        "y": 260,
+        "wires": [
+            [
+                "01bb5c3410a2f9bb"
+            ]
+        ],
+        "info": "reset print counter on midnight.\r\nCan be manually triggered if needed, but this\r\nwill cause to write images to existing directories\r\nif they exist already."
+    },
+    {
+        "id": "9fd51923d42f4fb0",
+        "type": "change",
+        "z": "9be75eaaa7bfaf87",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "reset",
+                "pt": "msg",
+                "to": "true",
+                "tot": "bool"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 1780,
+        "y": 260,
+        "wires": [
+            [
+                "b3adde9709869168"
+            ]
+        ]
+    },
+    {
+        "id": "e4abc33b26ddac2c",
+        "type": "delay",
+        "z": "9be75eaaa7bfaf87",
+        "name": "",
+        "pauseType": "delay",
+        "timeout": "1",
+        "timeoutUnits": "seconds",
+        "rate": "1",
+        "nbRateUnits": "1",
+        "rateUnits": "second",
+        "randomFirst": "1",
+        "randomLast": "5",
+        "randomUnits": "seconds",
+        "drop": false,
+        "allowrate": false,
+        "outputs": 1,
+        "x": 1480,
+        "y": 200,
+        "wires": [
+            [
+                "01bb5c3410a2f9bb"
+            ]
+        ]
+    },
+    {
+        "id": "06b79428babaa6a3",
+        "type": "function",
+        "z": "9be75eaaa7bfaf87",
+        "name": "initialize print_count",
+        "func": "// see On Start tab\n// see description of the node for more\n",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "// Code added here will be run once\n// whenever the node is started.\n\n// see description of the node for more\n\nvar print_count = flow.get('print_count');\nif (print_count == undefined) {\n    print_count = 0;\n    flow.set('print_count', print_count);\n}\nmsg = { print_count: print_count };\nreturn msg;\n",
+        "finalize": "",
+        "libs": [],
+        "x": 250,
+        "y": 240,
+        "wires": [
+            []
+        ],
+        "info": "Number of prints in given day\r\n"
+    },
+    {
+        "id": "01bb5c3410a2f9bb",
+        "type": "switch",
+        "z": "9be75eaaa7bfaf87",
+        "name": "gate state",
+        "property": "gate_open",
+        "propertyType": "flow",
+        "rules": [
+            {
+                "t": "true"
+            },
+            {
+                "t": "false"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 2,
+        "x": 1460,
+        "y": 260,
+        "wires": [
+            [
+                "e4abc33b26ddac2c"
+            ],
+            [
+                "3ba287701de6a1eb"
+            ]
+        ],
+        "info": "check if printing\r\nif yes, then reruoute reset message into a loop\r\nif no, then pass it and will trigger counter reset"
+    },
+    {
+        "id": "d80d27ee12c4623e",
+        "type": "ui_text",
+        "z": "9be75eaaa7bfaf87",
+        "group": "f4f4f8f287721c88",
+        "order": 2,
+        "width": 0,
+        "height": 0,
+        "name": "",
+        "label": "Current print count",
+        "format": "{{msg.count}}",
+        "layout": "col-center",
+        "className": "",
+        "x": 2350,
+        "y": 260,
+        "wires": []
+    },
+    {
+        "id": "83369f3cd359ed33",
+        "type": "ui_led",
+        "z": "9be75eaaa7bfaf87",
+        "order": 7,
+        "group": "f4f4f8f287721c88",
+        "width": 0,
+        "height": 0,
+        "label": "Saving images",
+        "labelPlacement": "left",
+        "labelAlignment": "left",
+        "colorForValue": [
+            {
+                "color": "#ff0000",
+                "value": "close",
+                "valueType": "str"
+            },
+            {
+                "color": "#008000",
+                "value": "open",
+                "valueType": "str"
+            }
+        ],
+        "allowColorForValueInMessage": false,
+        "shape": "circle",
+        "showGlow": true,
+        "name": "Saving images",
+        "x": 1540,
+        "y": 620,
+        "wires": []
+    },
+    {
+        "id": "41dea980c01097c3",
+        "type": "trigger",
+        "z": "9be75eaaa7bfaf87",
+        "name": "trigger render video",
+        "op1": "",
+        "op2": "1",
+        "op1type": "nul",
+        "op2type": "num",
+        "duration": "25",
+        "extend": true,
+        "overrideDelay": false,
+        "units": "s",
+        "reset": "",
+        "bytopic": "all",
+        "topic": "topic",
+        "outputs": 1,
+        "x": 1970,
+        "y": 580,
+        "wires": [
+            [
+                "764e58e03afd50bd"
+            ]
+        ],
+        "info": "when message flow stops\r\nthen run exec command to render video"
+    },
+    {
+        "id": "04fa21ad7b02f777",
+        "type": "trigger",
+        "z": "9be75eaaa7bfaf87",
+        "name": "trigger data generation",
+        "op1": "1",
+        "op2": "",
+        "op1type": "str",
+        "op2type": "nul",
+        "duration": "20",
+        "extend": true,
+        "overrideDelay": false,
+        "units": "s",
+        "reset": "",
+        "bytopic": "all",
+        "topic": "topic",
+        "outputs": 1,
+        "x": 1260,
+        "y": 460,
+        "wires": [
+            [
+                "0acff720821d7555",
+                "2a728ba8dfd92c3d"
+            ]
+        ]
+    },
+    {
+        "id": "764e58e03afd50bd",
+        "type": "function",
+        "z": "9be75eaaa7bfaf87",
+        "name": "generate directory",
+        "func": "var save_path_root = flow.get(\"save_path_root\");\nvar print_count = flow.get(\"print_count\");\nvar date = flow.get(\"date\");\nvar datetime = flow.get(\"datetime\");\n\nvar directory = date + \"_\" + print_count + \"/\";\n\nvar msg = {\n    payload: save_path_root + \"/\" + directory\n}\nreturn msg;\n",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 2170,
+        "y": 580,
+        "wires": [
+            [
+                "adbbab11ea70251a",
+                "5026857bd2a671da"
+            ]
+        ]
+    },
+    {
+        "id": "adbbab11ea70251a",
+        "type": "exec",
+        "z": "9be75eaaa7bfaf87",
+        "command": "/bin/timelapse.sh",
+        "addpay": "payload",
+        "append": "",
+        "useSpawn": "false",
+        "timer": "900",
+        "winHide": false,
+        "oldrc": false,
+        "name": "render video",
+        "x": 2410,
+        "y": 660,
+        "wires": [
+            [
+                "3ee57b6ed4d8add4",
+                "d1ee8e15853d936f"
+            ],
+            [
+                "06cb07ee080df46c",
+                "9eeeab8b1349f75f"
+            ],
+            [
+                "7f0814d2d8b74cf6",
+                "f06cb2e497800bee",
+                "c553fca61796c5b0"
+            ]
+        ]
+    },
+    {
+        "id": "b984130a202e6453",
+        "type": "ui_led",
+        "z": "9be75eaaa7bfaf87",
+        "order": 8,
+        "group": "f4f4f8f287721c88",
+        "width": 0,
+        "height": 0,
+        "label": "Video Renered",
+        "labelPlacement": "left",
+        "labelAlignment": "left",
+        "colorForValue": [
+            {
+                "color": "#90ee90",
+                "value": "success",
+                "valueType": "str"
+            },
+            {
+                "color": "#ff0000",
+                "value": "error",
+                "valueType": "str"
+            },
+            {
+                "color": "#ffff00",
+                "value": "processing",
+                "valueType": "str"
+            },
+            {
+                "color": "#808080",
+                "value": "pending",
+                "valueType": "str"
+            }
+        ],
+        "allowColorForValueInMessage": true,
+        "shape": "circle",
+        "showGlow": true,
+        "name": "Video Renered",
+        "x": 2900,
+        "y": 500,
+        "wires": []
+    },
+    {
+        "id": "d1ee8e15853d936f",
+        "type": "debug",
+        "z": "9be75eaaa7bfaf87",
+        "name": "video stdout",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 2630,
+        "y": 640,
+        "wires": []
+    },
+    {
+        "id": "9eeeab8b1349f75f",
+        "type": "debug",
+        "z": "9be75eaaa7bfaf87",
+        "name": "video stderr",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 2630,
+        "y": 720,
+        "wires": []
+    },
+    {
+        "id": "c553fca61796c5b0",
+        "type": "debug",
+        "z": "9be75eaaa7bfaf87",
+        "name": "video exit code",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 2640,
+        "y": 760,
+        "wires": []
+    },
+    {
+        "id": "1423afbc3d2b356c",
+        "type": "function",
+        "z": "9be75eaaa7bfaf87",
+        "name": "initialize date",
+        "func": "// see On Start tab\n// see description of the node for more\n",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "// Code added here will be run once\n// whenever the node is started.\n\n// see description of the node for more\n\n\nvar date = flow.get('date');\nif (date == undefined) {\n    date = 0;\n    flow.set('date', date);\n}\nmsg = { print_count: date };\nreturn msg;\n",
+        "finalize": "",
+        "libs": [],
+        "x": 230,
+        "y": 280,
+        "wires": [
+            []
+        ],
+        "info": "This data is used for defining fragment of the name\r\nof the directory which holds the images.\r\n\r\nThis is required to avoid issues with prints that will\r\ncross day change (midnight), for example\r\nwhen you start printing 10 minutes befor midnight\r\nand will end after the midnight.\r\n"
+    },
+    {
+        "id": "b44fa8bab78da44f",
+        "type": "ui_text",
+        "z": "9be75eaaa7bfaf87",
+        "group": "f4f4f8f287721c88",
+        "order": 3,
+        "width": 0,
+        "height": 0,
+        "name": "",
+        "label": "Date when last print started",
+        "format": "{{msg.payload}}",
+        "layout": "col-center",
+        "className": "",
+        "x": 1520,
+        "y": 340,
+        "wires": []
+    },
+    {
+        "id": "2a728ba8dfd92c3d",
+        "type": "moment",
+        "z": "9be75eaaa7bfaf87",
+        "name": "yyyy-MM-DD_HH-mm-ss",
+        "topic": "",
+        "input": "",
+        "inputType": "date",
+        "inTz": "Etc/UTC",
+        "adjAmount": 0,
+        "adjType": "days",
+        "adjDir": "add",
+        "format": "yyyy-MM-DD_HH-mm-ss",
+        "locale": "en-US",
+        "output": "",
+        "outputType": "msg",
+        "outTz": "Etc/UTC",
+        "x": 1550,
+        "y": 500,
+        "wires": [
+            [
+                "04afa71939c5d627"
+            ]
+        ]
+    },
+    {
+        "id": "04afa71939c5d627",
+        "type": "function",
+        "z": "9be75eaaa7bfaf87",
+        "name": "store date_print_start",
+        "func": "flow.set('date_print_start', msg.payload)\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1780,
+        "y": 500,
+        "wires": [
+            [
+                "69c4ab1a947421e0"
+            ]
+        ],
+        "info": "set time when printing was detected as running"
+    },
+    {
+        "id": "87f34fa971d2a328",
+        "type": "function",
+        "z": "9be75eaaa7bfaf87",
+        "name": "initialize date_print_start",
+        "func": "// see description of the node for more\n\nvar date_print_start = flow.get('date_print_start');\nif (date_print_start == undefined) {\n    date_print_start = \"-\";\n    flow.set('date_print_start', date_print_start);\n}\nmsg = { payload: date_print_start };\nreturn msg;\n",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1270,
+        "y": 340,
+        "wires": [
+            [
+                "b44fa8bab78da44f"
+            ]
+        ],
+        "info": "Stores data when print started.\r\nThis is used just for dashboard info"
+    },
+    {
+        "id": "7f0814d2d8b74cf6",
+        "type": "function",
+        "z": "9be75eaaa7bfaf87",
+        "name": "exit code to led",
+        "func": "if (msg.payload.code == 0){\n    msg = {payload: \"success\"};\n}\nelse\n{\n    msg = { payload: \"error\" };\n}\n\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 2640,
+        "y": 820,
+        "wires": [
+            [
+                "b984130a202e6453"
+            ]
+        ]
+    },
+    {
+        "id": "f06cb2e497800bee",
+        "type": "ui_template",
+        "z": "9be75eaaa7bfaf87",
+        "group": "4ac03c8d2f0cb0b1",
+        "name": "Last video exit code",
+        "order": 1,
+        "width": 0,
+        "height": 0,
+        "format": "<div>\n    <b>Last video exit code</b><br/>\n    {{msg.payload.code}}<br/>\n    {{msg.payload.message}}\n</div>\n",
+        "storeOutMessages": true,
+        "fwdInMessages": true,
+        "resendOnRefresh": true,
+        "templateScope": "local",
+        "className": "",
+        "x": 2660,
+        "y": 860,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "06cb07ee080df46c",
+        "type": "ui_template",
+        "z": "9be75eaaa7bfaf87",
+        "group": "4ac03c8d2f0cb0b1",
+        "name": "Last video stderr",
+        "order": 3,
+        "width": "0",
+        "height": "0",
+        "format": "<div>\n    <b>Last video stderr</b><br/>\n<code>\n    <pre>\n    {{msg.payload}}\n    </pre>\n</code>\n</div>\n",
+        "storeOutMessages": true,
+        "fwdInMessages": true,
+        "resendOnRefresh": true,
+        "templateScope": "local",
+        "className": "",
+        "x": 2650,
+        "y": 680,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "3ee57b6ed4d8add4",
+        "type": "ui_template",
+        "z": "9be75eaaa7bfaf87",
+        "group": "4ac03c8d2f0cb0b1",
+        "name": "Last video stdout",
+        "order": 2,
+        "width": "0",
+        "height": "0",
+        "format": "<div >\n<b>Last video stdout</b><br/>\n<code>\n    <pre>\n    {{msg.payload}}\n    </pre>\n</code>\n</div>\n",
+        "storeOutMessages": true,
+        "fwdInMessages": true,
+        "resendOnRefresh": true,
+        "templateScope": "local",
+        "className": "",
+        "x": 2650,
+        "y": 600,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "5026857bd2a671da",
+        "type": "function",
+        "z": "9be75eaaa7bfaf87",
+        "name": "yellow video led when processing",
+        "func": "var msg = { payload:\"processing\" };\n\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 2480,
+        "y": 560,
+        "wires": [
+            [
+                "b984130a202e6453"
+            ]
+        ]
+    },
+    {
+        "id": "69c4ab1a947421e0",
+        "type": "function",
+        "z": "9be75eaaa7bfaf87",
+        "name": "gray video led when processing",
+        "func": "var msg = { payload:\"penging\" };\n\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 2270,
+        "y": 500,
+        "wires": [
+            [
+                "b984130a202e6453"
+            ]
+        ]
+    },
+    {
+        "id": "3ba287701de6a1eb",
+        "type": "delay",
+        "z": "9be75eaaa7bfaf87",
+        "name": "",
+        "pauseType": "delay",
+        "timeout": "60",
+        "timeoutUnits": "seconds",
+        "rate": "1",
+        "nbRateUnits": "1",
+        "rateUnits": "second",
+        "randomFirst": "1",
+        "randomLast": "5",
+        "randomUnits": "seconds",
+        "drop": false,
+        "allowrate": false,
+        "outputs": 1,
+        "x": 1620,
+        "y": 260,
+        "wires": [
+            [
+                "9fd51923d42f4fb0"
+            ]
+        ],
+        "info": "must be higher than\r\ndelay gate control + trigger to render video\r\n"
+    },
+    {
+        "id": "ec132ff6f21eed45",
+        "type": "function",
+        "z": "9be75eaaa7bfaf87",
+        "name": "general config",
+        "func": "// see On Start tab\n// see description of the node for more\n",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "// Code added here will be run once\n// whenever the node is started.\n\n// see description of the node for more\n\n// where to store screenshots and videos\n// date and print count will be saved underneath\n// do not add trailing slash\n// directory will be automatically created if does not exist\nvar save_path_root = \"/data/prusa/with_gcode\";\n\n// this is adjusted to Prusa Mini+ web API\nvar printer_api_address = \"http://fake-prusa:5000/api/printer\";\nvar printer_api_key = \"change-me\";\n\nvar esp32_camera_address = \"http://fake-esp32camera:8888\";\n\n// save flow vars\nflow.set('save_path_root', save_path_root);\nflow.set('printer_api_address', printer_api_address);\nflow.set('printer_api_key', printer_api_key);\nflow.set('esp32_camera_address', esp32_camera_address);\nmsg = { save_path_root: save_path_root };\nreturn msg;\n",
+        "finalize": "",
+        "libs": [],
+        "x": 240,
+        "y": 200,
+        "wires": [
+            []
+        ],
+        "info": "This node is used as generic config for the whole flow\r\n."
+    },
+    {
+        "id": "35d6c159a6575d01",
+        "type": "function",
+        "z": "9be75eaaa7bfaf87",
+        "name": "generate url",
+        "func": "//get flow vars\n\n// this is adjusted to Prusa Mini+ web api\nvar url = flow.get(\"printer_api_address\");\nvar api_key = flow.get(\"printer_api_key\");\n\n// generate msg for http request\nvar msg = {\n    url: url,\n    api_key: api_key\n}\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 390,
+        "y": 560,
+        "wires": [
+            [
+                "857ec085ace53478"
+            ]
+        ],
+        "info": "Prepares values which are passed to http get node"
+    },
+    {
+        "id": "5ef2bc9b2ca018b4",
+        "type": "delay",
+        "z": "9be75eaaa7bfaf87",
+        "name": "delay",
+        "pauseType": "delay",
+        "timeout": "5",
+        "timeoutUnits": "seconds",
+        "rate": "1",
+        "nbRateUnits": "1",
+        "rateUnits": "second",
+        "randomFirst": "1",
+        "randomLast": "5",
+        "randomUnits": "seconds",
+        "drop": false,
+        "allowrate": false,
+        "outputs": 1,
+        "x": 1290,
+        "y": 640,
+        "wires": [
+            [
+                "46b0b66e8627528d",
+                "83369f3cd359ed33",
+                "9dbd747808e66a55",
+                "159de1a631432398"
+            ]
+        ],
+        "info": "must be higher than\r\ndelay gate control + trigger to render video\r\n"
+    },
+    {
+        "id": "04bc84d73f76b801",
+        "type": "mqtt in",
+        "z": "9be75eaaa7bfaf87",
+        "name": "cam button",
+        "topic": "esp32-wrover-0461c8/binary_sensor/button_black/state",
+        "qos": "2",
+        "datatype": "auto-detect",
+        "broker": "9e395dd3a06b4661",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 160,
+        "y": 840,
+        "wires": [
+            [
+                "88797da481346ff9"
+            ]
+        ]
+    },
+    {
+        "id": "6b2e6b2ee6e3e6f3",
+        "type": "change",
+        "z": "9be75eaaa7bfaf87",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "",
+                "tot": "date"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 480,
+        "y": 840,
+        "wires": [
+            [
+                "fc335e39ece6ef2a"
+            ]
+        ]
+    },
+    {
+        "id": "88797da481346ff9",
+        "type": "switch",
+        "z": "9be75eaaa7bfaf87",
+        "name": "",
+        "property": "payload",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "eq",
+                "v": "ON",
+                "vt": "str"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 1,
+        "x": 310,
+        "y": 840,
+        "wires": [
+            [
+                "6b2e6b2ee6e3e6f3"
+            ]
+        ]
+    },
+    {
+        "id": "90a9d90e1c204c3b",
+        "type": "inject",
+        "z": "9be75eaaa7bfaf87",
+        "name": "trigger manually",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 200,
+        "y": 900,
+        "wires": [
+            [
+                "fc335e39ece6ef2a"
+            ]
+        ]
+    },
+    {
+        "id": "8e4f474b5a13673b",
+        "type": "mqtt out",
+        "z": "9be75eaaa7bfaf87",
+        "name": "",
+        "topic": "esp32-wrover-0461c8/led_green",
+        "qos": "",
+        "retain": "",
+        "respTopic": "",
+        "contentType": "",
+        "userProps": "",
+        "correl": "",
+        "expiry": "",
+        "broker": "9e395dd3a06b4661",
+        "x": 1850,
+        "y": 960,
+        "wires": []
+    },
+    {
+        "id": "db48e043ba444239",
+        "type": "change",
+        "z": "9be75eaaa7bfaf87",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "true",
+                "tot": "bool"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 1620,
+        "y": 960,
+        "wires": [
+            [
+                "8e4f474b5a13673b"
+            ]
+        ]
+    },
+    {
+        "id": "b6cda9dc83dfc2a2",
+        "type": "jimp-image",
+        "z": "9be75eaaa7bfaf87",
+        "name": "add text onto the img",
+        "data": "payload",
+        "dataType": "msg",
+        "ret": "buf",
+        "parameter1": "FONT_SANS_64_WHITE",
+        "parameter1Type": "jimpFont",
+        "parameter2": "2",
+        "parameter2Type": "num",
+        "parameter3": "2",
+        "parameter3Type": "num",
+        "parameter4": "date_pretty",
+        "parameter4Type": "msg",
+        "parameter5": "",
+        "parameter5Type": "msg",
+        "parameter6": "",
+        "parameter6Type": "msg",
+        "parameter7": "",
+        "parameter7Type": "msg",
+        "parameter8": "",
+        "parameter8Type": "msg",
+        "sendProperty": "payload",
+        "sendPropertyType": "msg",
+        "parameterCount": 6,
+        "jimpFunction": "print",
+        "selectedJimpFunction": {
+            "name": "print",
+            "fn": "print",
+            "description": "Print text to the image",
+            "parameters": [
+                {
+                    "name": "font|str",
+                    "type": "jimpFont",
+                    "required": true,
+                    "hint": "font to print. NOTE: This can be one of the presets or the path to a fnt file"
+                },
+                {
+                    "name": "x",
+                    "type": "num",
+                    "required": true,
+                    "hint": "x coordinate to print text"
+                },
+                {
+                    "name": "y",
+                    "type": "num",
+                    "required": true,
+                    "hint": "y coordinate to print text"
+                },
+                {
+                    "name": "text",
+                    "type": "str",
+                    "required": true,
+                    "hint": "text to print"
+                },
+                {
+                    "name": "maxWidth",
+                    "type": "num",
+                    "required": false,
+                    "hint": "wrap text at maxWidth"
+                },
+                {
+                    "name": "maxHeight",
+                    "type": "num",
+                    "required": false,
+                    "hint": "max height"
+                }
+            ]
+        },
+        "x": 1320,
+        "y": 900,
+        "wires": [
+            [
+                "52e274ca8a00162d"
+            ]
+        ]
+    },
+    {
+        "id": "9dbd747808e66a55",
+        "type": "mqtt out",
+        "z": "9be75eaaa7bfaf87",
+        "name": "",
+        "topic": "esp32-wrover-0461c8/led_red",
+        "qos": "",
+        "retain": "",
+        "respTopic": "",
+        "contentType": "",
+        "userProps": "",
+        "correl": "",
+        "expiry": "",
+        "broker": "9e395dd3a06b4661",
+        "x": 1590,
+        "y": 660,
+        "wires": []
+    },
+    {
+        "id": "159de1a631432398",
+        "type": "debug",
+        "z": "9be75eaaa7bfaf87",
+        "name": "debug 21",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1560,
+        "y": 720,
+        "wires": []
+    },
+    {
+        "id": "47e3e9ed88608d27",
+        "type": "ui_group",
+        "name": "Printer State",
+        "tab": "aad737c4f3643d30",
+        "order": 1,
+        "disp": true,
+        "width": "6",
+        "collapse": false,
+        "className": ""
+    },
+    {
+        "id": "f4f4f8f287721c88",
+        "type": "ui_group",
+        "name": "Time Lapse",
+        "tab": "aad737c4f3643d30",
+        "order": 2,
+        "disp": true,
+        "width": "6",
+        "collapse": false,
+        "className": ""
+    },
+    {
+        "id": "4ac03c8d2f0cb0b1",
+        "type": "ui_group",
+        "name": "Video encoding",
+        "tab": "aad737c4f3643d30",
+        "order": 4,
+        "disp": true,
+        "width": "10",
+        "collapse": false,
+        "className": ""
+    },
+    {
+        "id": "9e395dd3a06b4661",
+        "type": "mqtt-broker",
+        "name": "bagno",
+        "broker": "bagno.intra.hlds.pl",
+        "port": "1883",
+        "clientid": "",
+        "autoConnect": true,
+        "usetls": false,
+        "protocolVersion": "5",
+        "keepalive": "60",
+        "cleansession": true,
+        "birthTopic": "",
+        "birthQos": "0",
+        "birthPayload": "",
+        "birthMsg": {},
+        "closeTopic": "",
+        "closeQos": "0",
+        "closePayload": "",
+        "closeMsg": {},
+        "willTopic": "",
+        "willQos": "0",
+        "willPayload": "",
+        "willMsg": {},
+        "userProps": "",
+        "sessionExpiry": ""
+    },
+    {
+        "id": "aad737c4f3643d30",
+        "type": "ui_tab",
+        "name": "Home",
+        "icon": "dashboard",
+        "disabled": false,
+        "hidden": false
+    }
+]
