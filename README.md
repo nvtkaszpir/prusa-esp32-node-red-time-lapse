@@ -93,29 +93,3 @@ Things that will not going to happen:
 ## Future plans
 
 Currently project fulfills the needs I wanted.
-
-Recording some videos has this issue that print head movement is sometimes annoying
-and the only way to fix it is to use custom gcode to move print head per layer to specific place
-and then trigger an image capture.
-
-Above can be done with physical button attached to esp32 which will trigger node-red
-event that will trigger the flow to capture image.
-
-Still, this option is less invasive for me than other options like octoprint, because
-it requires only injecting specific gcode per layer.
-
-Benefits:
-
-- taking photo per layer and not every 10s when printing in some random location
-- no more moving print head
-- you can place print bed in desired position for example all forward
-- no need to attach esp32 camera to print bed - no more blurred images due movement,
-  and esp32 camera can be in one static spot, so the occupied space by printer is lower
-
-Disadvantages:
-
-- more complex - needs gcode, physical button (magnet triggered is the safest one),
-  extra esphome code and node-red mqtt event node or similar
-- slightly slower print - due gcode and extra print head/bed moves
-- stringing - due gcode it may produce more filament strings, needs to adjust retraction
-  for that phase
