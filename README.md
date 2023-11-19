@@ -83,35 +83,16 @@ Things that will not going to happen:
 
 ## TODO
 
-- make v1 branch for current code
-- update flow with new one
-
-- ? script to process dumped flow and strip sensitive data with jq, so that
-  it can be added to git safely
-
-- ? script to process flows from git with secrets.json to replace entries,
-  also provide secrets.json.dist as an example for input with some comments
-
-- make v2 branch for future code, see below
-
-- replace trigger before gate with delay 25s, should help with those videos when print
-  ends and print head is still over the printed item
 - save daily print counter state to avoid writing to existing directories
-- add timestamps to camera images with ImageMagick
 - detect camera errors + add retry
-- detect bad camera captuers + add retry
+- detect bad camera captures + add retry
 
-- gcode per layer
-- button triggered by magnet
-- cable to esp32
-- code to esp32
-- ? led on esp32 that images are still captured
 - how to deal with the corner case when printing very close to the button - use gcode
   to trigger on-board pins, is is supported by Prusa Mini?
 
 ## Future plans
 
-Currenlty project fuflills the needs I wanted.
+Currently project fulfills the needs I wanted.
 
 Recording some videos has this issue that print head movement is sometimes annoying
 and the only way to fix it is to use custom gcode to move print head per layer to specific place
@@ -134,7 +115,7 @@ Benefits:
 Disadvantages:
 
 - more complex - needs gcode, physical button (magnet triggered is the safest one),
-  extra esphome code and node-red mqtt event node or similiar
-- sligthly slower print - due gcode and extra print head/bed moves
+  extra esphome code and node-red mqtt event node or similar
+- slightly slower print - due gcode and extra print head/bed moves
 - stringing - due gcode it may produce more filament strings, needs to adjust retraction
   for that phase
