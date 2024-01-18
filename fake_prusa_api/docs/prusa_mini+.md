@@ -1,6 +1,6 @@
 # Prusa Mini API examples
 
-Prusa Mini+ 4.4.1
+Prusa Mini+ v4.4.1, v5.1.2
 
 ## printing preheat
 
