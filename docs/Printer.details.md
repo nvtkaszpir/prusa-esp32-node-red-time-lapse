@@ -1,6 +1,6 @@
 # Getting 3D printer details
 
-Details for Prusa Mini+ firmware 4.4.1
+Details for Prusa Mini+ firmware v4.4.1 and v5.1.2
 
 - go to the Prusa LCD display menu
 - Setting - Network - PrusaLink, write down Current API Key (`PRUSA_API_KEY`)
