@@ -9,6 +9,9 @@ Current v2 version is on master branch and uses custom gcode to trigger images.
 For previous version see branch [v1](https://github.com/nvtkaszpir/prusa-esp32-node-red-time-lapse/tree/v1),
 but notice this is not maintained anymore.
 
+Tested with Prusa Mini+ v4.4.1 and v5.1.2, so it should probably work with
+any newer Prusa printer API (or may need slight adjustment).
+
 ## About
 
 Using custom gcode printer triggers button with every new layer.
